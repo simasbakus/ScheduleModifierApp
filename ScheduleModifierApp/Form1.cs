@@ -13,6 +13,7 @@ namespace ScheduleModifierApp
 {
     public partial class Form1 : Form
     {
+        public static DocumentReader docReader = new DocumentReader();
         public Form1()
         {
             InitializeComponent();
@@ -20,13 +21,13 @@ namespace ScheduleModifierApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DocumentReader docReader = new DocumentReader();
-            this.namesComboBox.DataSource = docReader.getEmployeeList();
+            this.namesComboBox.DataSource = docReader.getEmployeesList();
         }
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.label1.Text = this.namesComboBox.SelectedIndex.ToString();
+            this.label1.Text = docReader.getEmployeeSchedule(this.namesComboBox.SelectedIndex).Count.ToString();
         }
+
     }
 }
