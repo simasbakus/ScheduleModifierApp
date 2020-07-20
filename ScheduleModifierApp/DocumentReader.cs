@@ -23,9 +23,13 @@ namespace ScheduleModifierApp
         public List<string> getEmployeesList()
         {
             var employeesList = new List<string>();
+            string name;
+            string position;
             for (int i = 2; i < table1.Rows.Count + 1; i++)
             {
-                employeesList.Add(table1.Cell(i, 2).Range.Text + " " + table1.Cell(i, 3).Range.Text);
+                name = table1.Cell(i, 2).Range.Text;
+                position = table1.Cell(i, 3).Range.Text;
+                employeesList.Add(name.Remove(name.Length - 2) + " " + position.Remove(position.Length - 2));
             }
             return employeesList;
         }
@@ -33,17 +37,21 @@ namespace ScheduleModifierApp
         public List<string> getEmployeeSchedule(int employeeId)
         {
             var employeeSchedule = new List<string>();
+            //gets a string type value of the day from the last column in table2//
             var lastDay = (table2.Cell(1, table2.Columns.Count).Range.Text).Substring(0,2);
+            //------------------------------------------------------------------//
+            string hours;
             for (int i = 0; i < int.Parse(lastDay); i++)
             {
                 if (i < 16)
                 {
-                    employeeSchedule.Add(table1.Cell(employeeId + 2, i + 5).Range.Text);
+                    hours = table1.Cell(employeeId + 2, i + 5).Range.Text;
                 }
                 else
                 {
-                    employeeSchedule.Add(table2.Cell(employeeId + 2, i - 11).Range.Text);
+                    hours = table2.Cell(employeeId + 2, i - 11).Range.Text;
                 }
+                employeeSchedule.Add(hours.Remove(hours.Length - 2));
             }
             return employeeSchedule;
         }

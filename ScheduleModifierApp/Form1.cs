@@ -26,8 +26,9 @@ namespace ScheduleModifierApp
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.label1.Text = docReader.getEmployeeSchedule(this.namesComboBox.SelectedIndex).Count.ToString();
+            this.label1.Text = docReader.getEmployeeSchedule(this.namesComboBox.SelectedIndex)[2];
         }
+
 
     }
 }

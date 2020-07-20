@@ -30,6 +30,7 @@
         {
             this.namesComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.EmployeeScheduleTable = new System.Windows.Forms.TableLayoutPanel();
             this.SuspendLayout();
             // 
             // namesComboBox
@@ -52,11 +53,25 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             // 
+            // EmployeeScheduleTable
+            // 
+            this.EmployeeScheduleTable.ColumnCount = 2;
+            this.EmployeeScheduleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EmployeeScheduleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EmployeeScheduleTable.Location = new System.Drawing.Point(12, 251);
+            this.EmployeeScheduleTable.Name = "EmployeeScheduleTable";
+            this.EmployeeScheduleTable.RowCount = 2;
+            this.EmployeeScheduleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EmployeeScheduleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.EmployeeScheduleTable.Size = new System.Drawing.Size(1188, 272);
+            this.EmployeeScheduleTable.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
+            this.Controls.Add(this.EmployeeScheduleTable);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.namesComboBox);
             this.Name = "Form1";
@@ -71,6 +86,7 @@
 
         private System.Windows.Forms.ComboBox namesComboBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TableLayoutPanel EmployeeScheduleTable;
     }
 }
 
