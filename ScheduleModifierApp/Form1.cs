@@ -13,20 +13,23 @@ namespace ScheduleModifierApp
 {
     public partial class Form1 : Form
     {
-        public static DocumentReader docReader = new DocumentReader();
+        public List<Employee> data;
         public Form1()
         {
             InitializeComponent();
+            DocumentReader docReader = new DocumentReader();
+            data = docReader.getDataFromDoc();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.namesComboBox.DataSource = docReader.getEmployeesList();
+            this.namesComboBox.DataSource = data;
+            this.namesComboBox.DisplayMember = "NameAndPosition";
         }
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.label1.Text = docReader.getEmployeeSchedule(this.namesComboBox.SelectedIndex)[2];
+            this.label1.Text = data[namesComboBox.SelectedIndex].Hours[2];
         }
 
 

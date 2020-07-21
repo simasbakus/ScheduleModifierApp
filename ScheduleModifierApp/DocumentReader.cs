@@ -16,10 +16,24 @@ namespace ScheduleModifierApp
         public static object fileName = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx";
         public static _Word.Document doc = wordApp.Documents.Open(ref fileName, ref oMissing, ref oMissing, ref oMissing,
                                                                   ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                                                                  ref oMissing, ref oMissing, ref oMissing, ref oVisible);
+                                                                  ref oMissing, ref oMissing, ref oMissing, ref oMissing);
         public static _Word.Table table1 = doc.Tables[1];
         public static _Word.Table table2 = doc.Tables[2];
 
+        public List<Employee> getDataFromDoc()
+        {
+            var dataList = new List<Employee>();
+            var employeesList = getEmployeesList();
+            var i = 0;
+            foreach (var name in employeesList)
+            {
+                var employeeSchedule = getEmployeeSchedule(i);
+                dataList.Add(new Employee() { NameAndPosition = name, Hours = employeeSchedule });
+                i++;
+            }
+            doc.Close(_Word.WdSaveOptions.wdDoNotSaveChanges);
+            return dataList;
+        }
         public List<string> getEmployeesList()
         {
             var employeesList = new List<string>();
@@ -29,7 +43,7 @@ namespace ScheduleModifierApp
             {
                 name = table1.Cell(i, 2).Range.Text;
                 position = table1.Cell(i, 3).Range.Text;
-                employeesList.Add(name.Remove(name.Length - 2) + " " + position.Remove(position.Length - 2));
+                employeesList.Add(name.Remove(name.Length - 2) + "   " + position.Remove(position.Length - 2));
             }
             return employeesList;
         }
