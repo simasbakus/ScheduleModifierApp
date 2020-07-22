@@ -16,7 +16,7 @@ namespace ScheduleModifierApp
         public static object fileName = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx";
         public static _Word.Document doc = wordApp.Documents.Open(ref fileName, ref oMissing, ref oMissing, ref oMissing,
                                                                   ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                                                                  ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+                                                                  ref oMissing, ref oMissing, ref oMissing, ref oVisible);
         public static _Word.Table table1 = doc.Tables[1];
         public static _Word.Table table2 = doc.Tables[2];
 

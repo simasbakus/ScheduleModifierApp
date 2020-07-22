@@ -30,7 +30,15 @@
         {
             this.namesComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.EmployeeScheduleTable = new System.Windows.Forms.TableLayoutPanel();
+            this.ScheduleDataGrid = new System.Windows.Forms.DataGridView();
+            this.ColMonday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColTuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColWednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColThursday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColSaturday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // namesComboBox
@@ -53,30 +61,85 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             // 
-            // EmployeeScheduleTable
+            // ScheduleDataGrid
             // 
-            this.EmployeeScheduleTable.ColumnCount = 2;
-            this.EmployeeScheduleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.EmployeeScheduleTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.EmployeeScheduleTable.Location = new System.Drawing.Point(12, 251);
-            this.EmployeeScheduleTable.Name = "EmployeeScheduleTable";
-            this.EmployeeScheduleTable.RowCount = 2;
-            this.EmployeeScheduleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.EmployeeScheduleTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.EmployeeScheduleTable.Size = new System.Drawing.Size(1188, 272);
-            this.EmployeeScheduleTable.TabIndex = 2;
+            this.ScheduleDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ScheduleDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColMonday,
+            this.ColTuesday,
+            this.ColWednesday,
+            this.ColThursday,
+            this.ColFriday,
+            this.ColSaturday,
+            this.ColSunday});
+            this.ScheduleDataGrid.Location = new System.Drawing.Point(12, 285);
+            this.ScheduleDataGrid.Name = "ScheduleDataGrid";
+            this.ScheduleDataGrid.RowHeadersWidth = 51;
+            this.ScheduleDataGrid.RowTemplate.Height = 24;
+            this.ScheduleDataGrid.Size = new System.Drawing.Size(1188, 253);
+            this.ScheduleDataGrid.TabIndex = 2;
+            // 
+            // ColMonday
+            // 
+            this.ColMonday.HeaderText = "Monday";
+            this.ColMonday.MinimumWidth = 6;
+            this.ColMonday.Name = "ColMonday";
+            this.ColMonday.Width = 125;
+            // 
+            // ColTuesday
+            // 
+            this.ColTuesday.HeaderText = "Tuesday";
+            this.ColTuesday.MinimumWidth = 6;
+            this.ColTuesday.Name = "ColTuesday";
+            this.ColTuesday.Width = 125;
+            // 
+            // ColWednesday
+            // 
+            this.ColWednesday.HeaderText = "Wednesday";
+            this.ColWednesday.MinimumWidth = 6;
+            this.ColWednesday.Name = "ColWednesday";
+            this.ColWednesday.Width = 125;
+            // 
+            // ColThursday
+            // 
+            this.ColThursday.HeaderText = "Thursday";
+            this.ColThursday.MinimumWidth = 6;
+            this.ColThursday.Name = "ColThursday";
+            this.ColThursday.Width = 125;
+            // 
+            // ColFriday
+            // 
+            this.ColFriday.HeaderText = "Friday";
+            this.ColFriday.MinimumWidth = 6;
+            this.ColFriday.Name = "ColFriday";
+            this.ColFriday.Width = 125;
+            // 
+            // ColSaturday
+            // 
+            this.ColSaturday.HeaderText = "Saturday";
+            this.ColSaturday.MinimumWidth = 6;
+            this.ColSaturday.Name = "ColSaturday";
+            this.ColSaturday.Width = 125;
+            // 
+            // ColSunday
+            // 
+            this.ColSunday.HeaderText = "Sunday";
+            this.ColSunday.MinimumWidth = 6;
+            this.ColSunday.Name = "ColSunday";
+            this.ColSunday.Width = 125;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
-            this.Controls.Add(this.EmployeeScheduleTable);
+            this.Controls.Add(this.ScheduleDataGrid);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.namesComboBox);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -86,7 +149,14 @@
 
         private System.Windows.Forms.ComboBox namesComboBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TableLayoutPanel EmployeeScheduleTable;
+        private System.Windows.Forms.DataGridView ScheduleDataGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColMonday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColTuesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColWednesday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColThursday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColFriday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColSaturday;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
     }
 }
 
