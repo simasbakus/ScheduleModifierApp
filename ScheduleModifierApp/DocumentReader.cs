@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using _Word = Microsoft.Office.Interop.Word;
 
 
@@ -68,6 +69,18 @@ namespace ScheduleModifierApp
                 employeeSchedule.Add(hours.Remove(hours.Length - 2));
             }
             return employeeSchedule;
+        }
+        public int firstWeekDayOfMonth()
+        {
+            _Word.Paragraph paragraph2 = doc.Paragraphs[2];
+            _Word.Paragraph paragraph3 = doc.Paragraphs[3];
+            string text2 = paragraph2.Range.Text;
+            string text3 = paragraph3.Range.Text;
+            int month = int.Parse(text2.Substring(23, 2));
+            int year = int.Parse(text3.Substring(4, 4));
+            DateTime date = new DateTime(year, month, 1);
+            int weekday = (int)date.DayOfWeek - 1;
+            return weekday;
         }
     }
 }

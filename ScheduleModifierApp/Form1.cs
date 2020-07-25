@@ -14,10 +14,12 @@ namespace ScheduleModifierApp
     public partial class Form1 : Form
     {
         public List<Employee> data;
+        public int weekDay;
         public Form1()
         {
             InitializeComponent();
             DocumentReader docReader = new DocumentReader();
+            weekDay = docReader.firstWeekDayOfMonth();
             data = docReader.getDataFromDoc();
         }
 
@@ -29,44 +31,79 @@ namespace ScheduleModifierApp
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.label1.Text = data[namesComboBox.SelectedIndex].Hours[2];
             fillDataGrid(namesComboBox.SelectedIndex);
         }
 
         private void fillDataGrid(int employeeId)
         {
-            int day = 5;
-            int week = 0;
-            foreach (var item in data[employeeId].Hours)
+            int day = weekDay;
+            ScheduleDataGrid.Rows.Clear();
+            List<string> employeeHours = data[employeeId].Hours;
+            DataGridViewRow gridRow = new DataGridViewRow();
+            ScheduleDataGrid.Rows.Add();
+            foreach (var item in employeeHours)
             {
-                if ((day == 7) || (day == 14) || (day == 21) || (day == 28) || (day == 35))
+                if (day < 7)
                 {
-                    ScheduleDataGrid.Rows.Add();
-                    week++;
-                };
-                if (week == 0)
-                {
-                    ScheduleDataGrid.Rows[week].Cells[day].Value = item;
+                    ScheduleDataGrid.Rows[0].Cells[day].Value = item;
                 }
-                if (week == 1)
+                else if (day == 7)
                 {
-                    ScheduleDataGrid.Rows[week].Cells[day - 7].Value = item;
+                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[0].Clone();
+                    gridRow.Cells[day - 7].Value = item;
                 }
-                else if (week == 2)
+                else if (day > 7 && day < 14)
                 {
-                    ScheduleDataGrid.Rows[week].Cells[day - 14].Value = item;
+                    gridRow.Cells[day - 7].Value = item;
                 }
-                else if (week == 3)
+                else if (day == 14)
                 {
-                    ScheduleDataGrid.Rows[week].Cells[day - 21].Value = item;
+                    ScheduleDataGrid.Rows.Add(gridRow);
+                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[1].Clone();
+                    gridRow.Cells[day - 14].Value = item;
                 }
-                else if (week == 4)
+                else if (day > 14 && day < 21)
                 {
-                    ScheduleDataGrid.Rows[week].Cells[day - 28].Value = item;
-                };
+                    gridRow.Cells[day - 14].Value = item;
+                }
+                else if (day == 21)
+                {
+                    ScheduleDataGrid.Rows.Add(gridRow);
+                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[2].Clone();
+                    gridRow.Cells[day - 21].Value = item;
+                }
+                else if (day > 21 && day < 28)
+                {
+                    gridRow.Cells[day - 21].Value = item;
+                }
+                else if (day == 28)
+                {
+                    ScheduleDataGrid.Rows.Add(gridRow);
+                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[3].Clone();
+                    gridRow.Cells[day - 28].Value = item;
+                }
+                else if (day > 28 && day < 35)
+                {
+                    gridRow.Cells[day - 28].Value = item;
+                }
+                else if (day == 35)
+                {
+                    ScheduleDataGrid.Rows.Add(gridRow);
+                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[4].Clone();
+                    gridRow.Cells[day - 35].Value = item;
+                }
+                else if (day > 35 && day < 42)
+                {
+                    gridRow.Cells[day - 35].Value = item;
+                }
                 day++;
-                
+                if (day == employeeHours.Count + 5)
+                {
+                    ScheduleDataGrid.Rows.Add(gridRow);
+                }
             }
         }
+
+
     }
 }
