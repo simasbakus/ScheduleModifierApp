@@ -80,6 +80,7 @@
             this.ScheduleDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.ScheduleDataGrid.Size = new System.Drawing.Size(1171, 240);
             this.ScheduleDataGrid.TabIndex = 2;
+            this.ScheduleDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleDataGrid_CellDoubleClick);
             // 
             // ColMonday
             // 

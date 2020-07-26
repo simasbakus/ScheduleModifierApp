@@ -14,12 +14,12 @@ namespace ScheduleModifierApp
     public partial class Form1 : Form
     {
         public List<Employee> data;
-        public int weekDay;
+        public int startingCol;
         public Form1()
         {
             InitializeComponent();
             DocumentReader docReader = new DocumentReader();
-            weekDay = docReader.firstWeekDayOfMonth();
+            startingCol = docReader.firstWeekDayOfMonth();
             data = docReader.getDataFromDoc();
         }
 
@@ -34,9 +34,10 @@ namespace ScheduleModifierApp
             fillDataGrid(namesComboBox.SelectedIndex);
         }
 
+
         private void fillDataGrid(int employeeId)
         {
-            int day = weekDay;
+            int day = startingCol;
             ScheduleDataGrid.Rows.Clear();
             List<string> employeeHours = data[employeeId].Hours;
             DataGridViewRow gridRow = new DataGridViewRow();
@@ -97,13 +98,59 @@ namespace ScheduleModifierApp
                     gridRow.Cells[day - 35].Value = item;
                 }
                 day++;
-                if (day == employeeHours.Count + 5)
+                if (day == employeeHours.Count + startingCol)
                 {
                     ScheduleDataGrid.Rows.Add(gridRow);
                 }
             }
         }
 
+        private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var employeeId = namesComboBox.SelectedIndex;
+                var day = getDayOfMonth(e.RowIndex, e.ColumnIndex, startingCol);
+                var value = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                var col = e.ColumnIndex;
+                var row = e.RowIndex;
+                MessageBox.Show(  "EmployeeId: " + employeeId + Environment.NewLine
+                                + "Day: " + day + Environment.NewLine
+                                + "Cell Value: " + value + Environment.NewLine
+                                + "Cell column: " + col + Environment.NewLine
+                                + "Cell row: " + row);
+            }
+            
+        }
 
+        private int getDayOfMonth(int row, int col, int startCol)
+        {
+            int day = col - startCol;
+            if (row == 0)
+            {
+                day = day + 1;
+            }
+            else if (row == 1)
+            {
+                day = day + 8;
+            }
+            else if (row == 2)
+            {
+                day = day + 15;
+            }
+            else if (row == 3)
+            {
+                day = day + 22;
+            }
+            else if (row == 4)
+            {
+                day = day + 29;
+            }
+            else if (row == 5)
+            {
+                day = day + 36;
+            }
+            return day;
+        }
     }
 }
