@@ -126,29 +126,26 @@ namespace ScheduleModifierApp
         private int getDayOfMonth(int row, int col, int startCol)
         {
             int day = col - startCol;
-            if (row == 0)
+            switch (row)
             {
-                day = day + 1;
-            }
-            else if (row == 1)
-            {
-                day = day + 8;
-            }
-            else if (row == 2)
-            {
-                day = day + 15;
-            }
-            else if (row == 3)
-            {
-                day = day + 22;
-            }
-            else if (row == 4)
-            {
-                day = day + 29;
-            }
-            else if (row == 5)
-            {
-                day = day + 36;
+                case 0:
+                    day = day + 1;
+                    break;
+                case 1:
+                    day = day + 8;
+                    break;
+                case 2:
+                    day = day + 15;
+                    break;
+                case 3:
+                    day = day + 22;
+                    break;
+                case 4:
+                    day = day + 29;
+                    break;
+                case 5:
+                    day = day + 36;
+                    break;
             }
             return day;
         }
