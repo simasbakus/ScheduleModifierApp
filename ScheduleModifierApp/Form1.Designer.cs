@@ -37,6 +37,7 @@
             this.ColFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSatuday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TestListBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,11 +139,22 @@
             this.ColSunday.ReadOnly = true;
             this.ColSunday.Width = 125;
             // 
+            // TestListBtn
+            // 
+            this.TestListBtn.Location = new System.Drawing.Point(803, 79);
+            this.TestListBtn.Name = "TestListBtn";
+            this.TestListBtn.Size = new System.Drawing.Size(91, 23);
+            this.TestListBtn.TabIndex = 3;
+            this.TestListBtn.Text = "TestList";
+            this.TestListBtn.UseVisualStyleBackColor = true;
+            this.TestListBtn.Click += new System.EventHandler(this.TestListBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
+            this.Controls.Add(this.TestListBtn);
             this.Controls.Add(this.ScheduleDataGrid);
             this.Controls.Add(this.namesComboBox);
             this.Name = "Form1";
@@ -164,6 +176,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFriday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSatuday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
+        private System.Windows.Forms.Button TestListBtn;
     }
 }
 

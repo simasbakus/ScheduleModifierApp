@@ -15,6 +15,7 @@ namespace ScheduleModifierApp
     {
         public List<Employee> data;
         public int startingCol;
+        public List<ModifiedData> modifiedData = new List<ModifiedData>();
         public Form1()
         {
             InitializeComponent();
@@ -145,6 +146,11 @@ namespace ScheduleModifierApp
                     break;
             }
             return day;
+        }
+
+        private void TestListBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("List count: " + modifiedData.Count());
         }
     }
 }

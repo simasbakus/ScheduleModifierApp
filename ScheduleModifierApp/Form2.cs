@@ -38,6 +38,7 @@ namespace ScheduleModifierApp
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
+            form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
             exitWithX = false;
             this.Close();
         }
@@ -46,13 +47,14 @@ namespace ScheduleModifierApp
         {
             if (exitWithX)
             {
-                if (MessageBox.Show("Do You really want to exit? Latest change will not be saved!", "Exit without saving?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                if (MessageBox.Show("Do You really want to exit? Latest change will not be saved!", 
+                                    "Exit without saving?", 
+                                    MessageBoxButtons.YesNo, 
+                                    MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     e.Cancel = true;
                 }
             }
-            
-            
         }
     }
 }
