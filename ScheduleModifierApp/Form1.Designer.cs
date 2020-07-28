@@ -156,7 +156,7 @@
         #endregion
 
         public System.Windows.Forms.ComboBox namesComboBox;
-        public System.Windows.Forms.DataGridView ScheduleDataGrid;
+        private System.Windows.Forms.DataGridView ScheduleDataGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMonday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColWednesday;

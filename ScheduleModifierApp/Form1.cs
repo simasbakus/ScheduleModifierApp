@@ -114,13 +114,8 @@ namespace ScheduleModifierApp
                 var value = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                 var col = e.ColumnIndex;
                 var row = e.RowIndex;
-                Form2 form2 = new Form2(this, row, col, employeeId, day);
+                Form2 form2 = new Form2(this, row, col, employeeId, day, value);
                 form2.Show();
-                /*MessageBox.Show(  "EmployeeId: " + employeeId + Environment.NewLine
-                                + "Day: " + day + Environment.NewLine
-                                + "Cell Value: " + value + Environment.NewLine
-                                + "Cell column: " + col + Environment.NewLine
-                                + "Cell row: " + row);*/
             }
             
         }
