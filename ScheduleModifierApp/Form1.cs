@@ -113,6 +113,10 @@ namespace ScheduleModifierApp
                     ScheduleDataGrid.Rows.Add(gridRow);
                 }
             }
+
+            //Updates DataGridView from ModifiedData list//
+
+            fillDataGridViewFromModifiedList(employeeId);
         }
 
         private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -160,10 +164,24 @@ namespace ScheduleModifierApp
             }
             return day;
         }
+        
+        private void fillDataGridViewFromModifiedList(int employeeId)
+        {
+            if (modifiedData.Any())
+            {
+                foreach (var item in modifiedData)
+                {
+                    if (item.EmployeeId == employeeId)
+                    {
+                        ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Value;
+                    }
+                }
+            }
+        }
 
         private void TestListBtn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("List count: " + modifiedData.Count());
+            MessageBox.Show("List count: " + modifiedData.Count());  
             if (modifiedData.Count > 0)
             {
                 MessageBox.Show(  "Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine

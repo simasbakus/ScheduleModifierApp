@@ -36,7 +36,7 @@ namespace ScheduleModifierApp
         private void Form2_Load(object sender, EventArgs e)
         {
             ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine 
-                                           + month + " men. " + day.ToString() + " dienos valandu keitimas";
+                                           + month + " men. " + day.ToString() + " dienos darbo valandos";
             ModifyingHoursTextBox.Text = value;
         }
 
@@ -46,6 +46,10 @@ namespace ScheduleModifierApp
             if (value != ModifyingHoursTextBox.Text)
             {
                 form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
+                
+                //updates new value in form1 dataGridView//
+
+                form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
             }
 
             //sets the boolean exitWithX to false to close the window immediatly//

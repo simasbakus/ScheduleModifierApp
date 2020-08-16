@@ -54,7 +54,7 @@
             // OkBtn
             // 
             this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.OkBtn.Location = new System.Drawing.Point(479, 256);
+            this.OkBtn.Location = new System.Drawing.Point(326, 252);
             this.OkBtn.Name = "OkBtn";
             this.OkBtn.Size = new System.Drawing.Size(109, 34);
             this.OkBtn.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 321);
+            this.ClientSize = new System.Drawing.Size(460, 321);
             this.Controls.Add(this.OkBtn);
             this.Controls.Add(this.ModifyingHoursTextBox);
             this.Controls.Add(this.ModifyingHoursDateLabel);

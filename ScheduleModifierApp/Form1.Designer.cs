@@ -188,7 +188,7 @@
         #endregion
 
         public System.Windows.Forms.ComboBox namesComboBox;
-        private System.Windows.Forms.DataGridView ScheduleDataGrid;
+        public System.Windows.Forms.DataGridView ScheduleDataGrid;
         private System.Windows.Forms.Button TestListBtn;
         private System.Windows.Forms.Label MonthLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMonday;
