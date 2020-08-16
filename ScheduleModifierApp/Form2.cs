@@ -18,6 +18,8 @@ namespace ScheduleModifierApp
         public int employeeId { get; }
         public int day { get; }
         public string value { get; }
+        public string month { get; }
+
         private bool exitWithX = true;
         public Form2(Form1 form1, int row, int col, int employeeId, int day, string value)
         {
@@ -28,17 +30,24 @@ namespace ScheduleModifierApp
             this.employeeId = employeeId;
             this.day = day;
             this.value = value;
+            this.month = form1.month;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            ModifyingHoursDateLabel.Text = form1.namesComboBox.Text + Environment.NewLine + day.ToString() + " dienos valandu keitimas";
+            ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine 
+                                           + month + " men. " + day.ToString() + " dienos valandu keitimas";
             ModifyingHoursTextBox.Text = value;
         }
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
+            //Adds the changed value to the Modified data list//
+
             form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
+
+            //sets the boolean exitWithX to false to close the window immediatly//
+
             exitWithX = false;
             this.Close();
         }
@@ -47,7 +56,9 @@ namespace ScheduleModifierApp
         {
             if (exitWithX)
             {
-                if (MessageBox.Show("Do You really want to exit? Latest change will not be saved!", 
+                //if boolean exitWithX is true shows a message before closing//
+
+                if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
                                     "Exit without saving?", 
                                     MessageBoxButtons.YesNo, 
                                     MessageBoxIcon.Warning) == DialogResult.No)

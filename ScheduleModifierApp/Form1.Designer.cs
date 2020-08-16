@@ -38,6 +38,7 @@
             this.ColSatuday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TestListBtn = new System.Windows.Forms.Button();
+            this.MonthLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,6 +90,7 @@
             this.ColMonday.MinimumWidth = 6;
             this.ColMonday.Name = "ColMonday";
             this.ColMonday.ReadOnly = true;
+            this.ColMonday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColMonday.Width = 125;
             // 
             // ColTuesday
@@ -97,6 +99,7 @@
             this.ColTuesday.MinimumWidth = 6;
             this.ColTuesday.Name = "ColTuesday";
             this.ColTuesday.ReadOnly = true;
+            this.ColTuesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColTuesday.Width = 125;
             // 
             // ColWednesday
@@ -105,6 +108,7 @@
             this.ColWednesday.MinimumWidth = 6;
             this.ColWednesday.Name = "ColWednesday";
             this.ColWednesday.ReadOnly = true;
+            this.ColWednesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColWednesday.Width = 125;
             // 
             // ColThursday
@@ -113,6 +117,7 @@
             this.ColThursday.MinimumWidth = 6;
             this.ColThursday.Name = "ColThursday";
             this.ColThursday.ReadOnly = true;
+            this.ColThursday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColThursday.Width = 125;
             // 
             // ColFriday
@@ -121,6 +126,7 @@
             this.ColFriday.MinimumWidth = 6;
             this.ColFriday.Name = "ColFriday";
             this.ColFriday.ReadOnly = true;
+            this.ColFriday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColFriday.Width = 125;
             // 
             // ColSatuday
@@ -129,6 +135,7 @@
             this.ColSatuday.MinimumWidth = 6;
             this.ColSatuday.Name = "ColSatuday";
             this.ColSatuday.ReadOnly = true;
+            this.ColSatuday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColSatuday.Width = 125;
             // 
             // ColSunday
@@ -137,23 +144,35 @@
             this.ColSunday.MinimumWidth = 6;
             this.ColSunday.Name = "ColSunday";
             this.ColSunday.ReadOnly = true;
+            this.ColSunday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColSunday.Width = 125;
             // 
             // TestListBtn
             // 
             this.TestListBtn.Location = new System.Drawing.Point(803, 79);
             this.TestListBtn.Name = "TestListBtn";
-            this.TestListBtn.Size = new System.Drawing.Size(91, 23);
+            this.TestListBtn.Size = new System.Drawing.Size(138, 23);
             this.TestListBtn.TabIndex = 3;
             this.TestListBtn.Text = "TestList";
             this.TestListBtn.UseVisualStyleBackColor = true;
             this.TestListBtn.Click += new System.EventHandler(this.TestListBtn_Click);
+            // 
+            // MonthLabel
+            // 
+            this.MonthLabel.AutoSize = true;
+            this.MonthLabel.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.MonthLabel.Location = new System.Drawing.Point(12, 163);
+            this.MonthLabel.Name = "MonthLabel";
+            this.MonthLabel.Size = new System.Drawing.Size(77, 29);
+            this.MonthLabel.TabIndex = 4;
+            this.MonthLabel.Text = "label1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
+            this.Controls.Add(this.MonthLabel);
             this.Controls.Add(this.TestListBtn);
             this.Controls.Add(this.ScheduleDataGrid);
             this.Controls.Add(this.namesComboBox);
@@ -162,6 +181,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -169,6 +189,7 @@
 
         public System.Windows.Forms.ComboBox namesComboBox;
         private System.Windows.Forms.DataGridView ScheduleDataGrid;
+        private System.Windows.Forms.Button TestListBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMonday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColWednesday;
@@ -176,7 +197,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFriday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSatuday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
-        private System.Windows.Forms.Button TestListBtn;
+        private System.Windows.Forms.Label MonthLabel;
     }
 }
 

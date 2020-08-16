@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,6 +82,15 @@ namespace ScheduleModifierApp
             DateTime date = new DateTime(year, month, 1);
             int weekday = (int)date.DayOfWeek - 1;
             return weekday;
+        }
+
+        public string getMonth()
+        {
+            _Word.Paragraph paragraph3 = doc.Paragraphs[3];
+            string text3 = paragraph3.Range.Text;
+            text3 = text3.Substring(11);
+            string month = text3.Remove(text3.Length - 6);
+            return month;
         }
     }
 }

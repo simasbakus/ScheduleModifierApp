@@ -15,17 +15,26 @@ namespace ScheduleModifierApp
     {
         public List<Employee> data;
         public int startingCol;
+        public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         public Form1()
         {
             InitializeComponent();
+            
+            //Gets data from word document//
+
             DocumentReader docReader = new DocumentReader();
             startingCol = docReader.firstWeekDayOfMonth();
+            month = docReader.getMonth();
             data = docReader.getDataFromDoc();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MonthLabel.Text = month + " men.";
+
+            //Fills combobox with data//
+            
             this.namesComboBox.DataSource = data;
             this.namesComboBox.DisplayMember = "NameAndPosition";
         }
@@ -108,6 +117,8 @@ namespace ScheduleModifierApp
 
         private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            //Calls a second form window for changing the slected cell value//
+
             if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 var employeeId = namesComboBox.SelectedIndex;
@@ -123,6 +134,8 @@ namespace ScheduleModifierApp
 
         private int getDayOfMonth(int row, int col, int startCol)
         {
+            //method for getting the months day//
+
             int day = col - startCol;
             switch (row)
             {
