@@ -164,6 +164,14 @@ namespace ScheduleModifierApp
         private void TestListBtn_Click(object sender, EventArgs e)
         {
             MessageBox.Show("List count: " + modifiedData.Count());
+            if (modifiedData.Count > 0)
+            {
+                MessageBox.Show(  "Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
+                                + "Day: " + modifiedData.Last().Day + Environment.NewLine
+                                + "Value: " + modifiedData.Last().Value + Environment.NewLine
+                                + "Column: " + modifiedData.Last().Col + Environment.NewLine
+                                + "Row: " + modifiedData.Last().Row + Environment.NewLine);
+            }
         }
     }
 }

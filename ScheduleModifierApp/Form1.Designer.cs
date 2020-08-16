@@ -30,6 +30,8 @@
         {
             this.namesComboBox = new System.Windows.Forms.ComboBox();
             this.ScheduleDataGrid = new System.Windows.Forms.DataGridView();
+            this.TestListBtn = new System.Windows.Forms.Button();
+            this.MonthLabel = new System.Windows.Forms.Label();
             this.ColMonday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColTuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColWednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,8 +39,6 @@
             this.ColFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSatuday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TestListBtn = new System.Windows.Forms.Button();
-            this.MonthLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,69 +84,6 @@
             this.ScheduleDataGrid.TabIndex = 2;
             this.ScheduleDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleDataGrid_CellDoubleClick);
             // 
-            // ColMonday
-            // 
-            this.ColMonday.HeaderText = "Monday";
-            this.ColMonday.MinimumWidth = 6;
-            this.ColMonday.Name = "ColMonday";
-            this.ColMonday.ReadOnly = true;
-            this.ColMonday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColMonday.Width = 125;
-            // 
-            // ColTuesday
-            // 
-            this.ColTuesday.HeaderText = "Tuesday";
-            this.ColTuesday.MinimumWidth = 6;
-            this.ColTuesday.Name = "ColTuesday";
-            this.ColTuesday.ReadOnly = true;
-            this.ColTuesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColTuesday.Width = 125;
-            // 
-            // ColWednesday
-            // 
-            this.ColWednesday.HeaderText = "Wednesday";
-            this.ColWednesday.MinimumWidth = 6;
-            this.ColWednesday.Name = "ColWednesday";
-            this.ColWednesday.ReadOnly = true;
-            this.ColWednesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColWednesday.Width = 125;
-            // 
-            // ColThursday
-            // 
-            this.ColThursday.HeaderText = "Thursday";
-            this.ColThursday.MinimumWidth = 6;
-            this.ColThursday.Name = "ColThursday";
-            this.ColThursday.ReadOnly = true;
-            this.ColThursday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColThursday.Width = 125;
-            // 
-            // ColFriday
-            // 
-            this.ColFriday.HeaderText = "Friday";
-            this.ColFriday.MinimumWidth = 6;
-            this.ColFriday.Name = "ColFriday";
-            this.ColFriday.ReadOnly = true;
-            this.ColFriday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColFriday.Width = 125;
-            // 
-            // ColSatuday
-            // 
-            this.ColSatuday.HeaderText = "Saturday";
-            this.ColSatuday.MinimumWidth = 6;
-            this.ColSatuday.Name = "ColSatuday";
-            this.ColSatuday.ReadOnly = true;
-            this.ColSatuday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColSatuday.Width = 125;
-            // 
-            // ColSunday
-            // 
-            this.ColSunday.HeaderText = "Sunday";
-            this.ColSunday.MinimumWidth = 6;
-            this.ColSunday.Name = "ColSunday";
-            this.ColSunday.ReadOnly = true;
-            this.ColSunday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColSunday.Width = 125;
-            // 
             // TestListBtn
             // 
             this.TestListBtn.Location = new System.Drawing.Point(803, 79);
@@ -166,6 +103,69 @@
             this.MonthLabel.Size = new System.Drawing.Size(77, 29);
             this.MonthLabel.TabIndex = 4;
             this.MonthLabel.Text = "label1";
+            // 
+            // ColMonday
+            // 
+            this.ColMonday.HeaderText = "Pirmadienis";
+            this.ColMonday.MinimumWidth = 6;
+            this.ColMonday.Name = "ColMonday";
+            this.ColMonday.ReadOnly = true;
+            this.ColMonday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColMonday.Width = 125;
+            // 
+            // ColTuesday
+            // 
+            this.ColTuesday.HeaderText = "Antradienis";
+            this.ColTuesday.MinimumWidth = 6;
+            this.ColTuesday.Name = "ColTuesday";
+            this.ColTuesday.ReadOnly = true;
+            this.ColTuesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColTuesday.Width = 125;
+            // 
+            // ColWednesday
+            // 
+            this.ColWednesday.HeaderText = "Treciadienis";
+            this.ColWednesday.MinimumWidth = 6;
+            this.ColWednesday.Name = "ColWednesday";
+            this.ColWednesday.ReadOnly = true;
+            this.ColWednesday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColWednesday.Width = 125;
+            // 
+            // ColThursday
+            // 
+            this.ColThursday.HeaderText = "Ketvirtadienis";
+            this.ColThursday.MinimumWidth = 6;
+            this.ColThursday.Name = "ColThursday";
+            this.ColThursday.ReadOnly = true;
+            this.ColThursday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColThursday.Width = 125;
+            // 
+            // ColFriday
+            // 
+            this.ColFriday.HeaderText = "Penktadienis";
+            this.ColFriday.MinimumWidth = 6;
+            this.ColFriday.Name = "ColFriday";
+            this.ColFriday.ReadOnly = true;
+            this.ColFriday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColFriday.Width = 125;
+            // 
+            // ColSatuday
+            // 
+            this.ColSatuday.HeaderText = "Sestadienis";
+            this.ColSatuday.MinimumWidth = 6;
+            this.ColSatuday.Name = "ColSatuday";
+            this.ColSatuday.ReadOnly = true;
+            this.ColSatuday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColSatuday.Width = 125;
+            // 
+            // ColSunday
+            // 
+            this.ColSunday.HeaderText = "Sekmadienis";
+            this.ColSunday.MinimumWidth = 6;
+            this.ColSunday.Name = "ColSunday";
+            this.ColSunday.ReadOnly = true;
+            this.ColSunday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColSunday.Width = 125;
             // 
             // Form1
             // 
@@ -190,6 +190,7 @@
         public System.Windows.Forms.ComboBox namesComboBox;
         private System.Windows.Forms.DataGridView ScheduleDataGrid;
         private System.Windows.Forms.Button TestListBtn;
+        private System.Windows.Forms.Label MonthLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMonday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTuesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColWednesday;
@@ -197,7 +198,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFriday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSatuday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
-        private System.Windows.Forms.Label MonthLabel;
     }
 }
 

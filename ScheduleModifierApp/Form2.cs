@@ -42,9 +42,11 @@ namespace ScheduleModifierApp
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            //Adds the changed value to the Modified data list//
-
-            form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
+            //Adds the changed value to the Modified data list if textbox value is different than before//
+            if (value != ModifyingHoursTextBox.Text)
+            {
+                form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
+            }
 
             //sets the boolean exitWithX to false to close the window immediatly//
 
@@ -60,12 +62,13 @@ namespace ScheduleModifierApp
 
                 if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
                                     "Exit without saving?", 
-                                    MessageBoxButtons.YesNo, 
+                                    MessageBoxButtons.YesNo,  
                                     MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     e.Cancel = true;
                 }
             }
         }
+
     }
 }

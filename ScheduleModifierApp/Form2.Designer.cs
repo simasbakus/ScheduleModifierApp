@@ -46,16 +46,17 @@
             // ModifyingHoursTextBox
             // 
             this.ModifyingHoursTextBox.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.ModifyingHoursTextBox.Location = new System.Drawing.Point(55, 199);
+            this.ModifyingHoursTextBox.Location = new System.Drawing.Point(55, 159);
             this.ModifyingHoursTextBox.Name = "ModifyingHoursTextBox";
             this.ModifyingHoursTextBox.Size = new System.Drawing.Size(335, 28);
             this.ModifyingHoursTextBox.TabIndex = 1;
             // 
             // OkBtn
             // 
-            this.OkBtn.Location = new System.Drawing.Point(513, 267);
+            this.OkBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.OkBtn.Location = new System.Drawing.Point(479, 256);
             this.OkBtn.Name = "OkBtn";
-            this.OkBtn.Size = new System.Drawing.Size(75, 23);
+            this.OkBtn.Size = new System.Drawing.Size(109, 34);
             this.OkBtn.TabIndex = 2;
             this.OkBtn.Text = "Ok";
             this.OkBtn.UseVisualStyleBackColor = true;
