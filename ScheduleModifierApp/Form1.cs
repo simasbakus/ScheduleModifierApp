@@ -167,25 +167,19 @@ namespace ScheduleModifierApp
         
         private void fillDataGridViewFromModifiedList(int employeeId)
         {
-            if (modifiedData.Any())
+            foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {
-                foreach (var item in modifiedData)
-                {
-                    if (item.EmployeeId == employeeId)
-                    {
-                        ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Value;
-                    }
-                }
+                ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Value;
             }
         }
 
         private void TestListBtn_Click(object sender, EventArgs e)
         {
             MessageBox.Show("List count: " + modifiedData.Count());  
-            if (modifiedData.Count > 0)
+            if (modifiedData.Any())
             {
                 MessageBox.Show(  "Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
-                                + "Day: " + modifiedData.Last().Day + Environment.NewLine
+                                + "Day: " + modifiedData.Last().Day + Environment.NewLine  
                                 + "Value: " + modifiedData.Last().Value + Environment.NewLine
                                 + "Column: " + modifiedData.Last().Col + Environment.NewLine
                                 + "Row: " + modifiedData.Last().Row + Environment.NewLine);
