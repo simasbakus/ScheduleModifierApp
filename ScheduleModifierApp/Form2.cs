@@ -43,7 +43,7 @@ namespace ScheduleModifierApp
         private void OkBtn_Click(object sender, EventArgs e)
         {
             //Adds the changed value to the Modified data list if textbox value is different than before//
-            form1.modifiedData.Find(item => item.EmployeeId == employeeId);
+            
             if (value != ModifyingHoursTextBox.Text)
             {
                 form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });

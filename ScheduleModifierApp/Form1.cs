@@ -14,19 +14,26 @@ namespace ScheduleModifierApp
     public partial class Form1 : Form
     {
         public List<Employee> data;
-        public int startingCol;
+        public int startingCol;  
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         public Form1()
         {
-            InitializeComponent();
-            
-            //Gets data from word document//
+            //Gets data from a selected word document//
 
-            DocumentReader docReader = new DocumentReader();
-            startingCol = docReader.firstWeekDayOfMonth();
-            month = docReader.getMonth();
-            data = docReader.getDataFromDoc();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = @"C:\Users\simas\OneDrive\Documents";
+            openFileDialog.Filter = "docx files (*.docx)|*.docx|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                InitializeComponent();
+                DocumentReader docReader = new DocumentReader();
+                docReader.openDoc(openFileDialog.FileName);
+                startingCol = docReader.firstWeekDayOfMonth();
+                month = docReader.getMonth();
+                data = docReader.getDataFromDoc();
+            }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,6 +44,8 @@ namespace ScheduleModifierApp
             
             this.namesComboBox.DataSource = data;
             this.namesComboBox.DisplayMember = "NameAndPosition";
+
+            this.Activate();
         }
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -116,7 +125,7 @@ namespace ScheduleModifierApp
 
             //Updates DataGridView from ModifiedData list//
 
-            fillDataGridViewFromModifiedList(employeeId);
+            updateDataGridViewFromModifiedList(employeeId);
         }
 
         private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -165,7 +174,7 @@ namespace ScheduleModifierApp
             return day;
         }
         
-        private void fillDataGridViewFromModifiedList(int employeeId)
+        private void updateDataGridViewFromModifiedList(int employeeId)
         {
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {

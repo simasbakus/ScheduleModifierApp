@@ -15,12 +15,18 @@ namespace ScheduleModifierApp
         public static _Word.Application wordApp = new _Word.Application();
         public static object oMissing = System.Reflection.Missing.Value;
         public static object oVisible = false;
-        public static object fileName = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx";
-        public static _Word.Document doc = wordApp.Documents.Open(ref fileName, ref oMissing, ref oMissing, ref oMissing,
-                                                                  ref oMissing, ref oMissing, ref oMissing, ref oMissing,
-                                                                  ref oMissing, ref oMissing, ref oMissing, ref oVisible);
-        public static _Word.Table table1 = doc.Tables[1];
-        public static _Word.Table table2 = doc.Tables[2];
+        public static _Word.Document doc;
+        public static _Word.Table table1;
+        public static _Word.Table table2;
+        public void openDoc(object fileName)
+        {
+            doc = wordApp.Documents.Open(ref fileName, ref oMissing, ref oMissing, ref oMissing,
+                                         ref oMissing, ref oMissing, ref oMissing, ref oMissing,
+                                         ref oMissing, ref oMissing, ref oMissing, ref oVisible);
+            table1 = doc.Tables[1];
+            table2 = doc.Tables[2];
+        }
+        
 
         public List<Employee> getDataFromDoc()
         {

@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.namesComboBox = new System.Windows.Forms.ComboBox();
             this.ScheduleDataGrid = new System.Windows.Forms.DataGridView();
-            this.TestListBtn = new System.Windows.Forms.Button();
-            this.MonthLabel = new System.Windows.Forms.Label();
             this.ColMonday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColTuesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColWednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,6 +38,8 @@
             this.ColFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSatuday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TestListBtn = new System.Windows.Forms.Button();
+            this.MonthLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,6 +71,14 @@
             this.ColFriday,
             this.ColSatuday,
             this.ColSunday});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.ScheduleDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.ScheduleDataGrid.Location = new System.Drawing.Point(12, 210);
             this.ScheduleDataGrid.MultiSelect = false;
@@ -83,26 +92,6 @@
             this.ScheduleDataGrid.Size = new System.Drawing.Size(1171, 240);
             this.ScheduleDataGrid.TabIndex = 2;
             this.ScheduleDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleDataGrid_CellDoubleClick);
-            // 
-            // TestListBtn
-            // 
-            this.TestListBtn.Location = new System.Drawing.Point(803, 79);
-            this.TestListBtn.Name = "TestListBtn";
-            this.TestListBtn.Size = new System.Drawing.Size(138, 23);
-            this.TestListBtn.TabIndex = 3;
-            this.TestListBtn.Text = "TestList";
-            this.TestListBtn.UseVisualStyleBackColor = true;
-            this.TestListBtn.Click += new System.EventHandler(this.TestListBtn_Click);
-            // 
-            // MonthLabel
-            // 
-            this.MonthLabel.AutoSize = true;
-            this.MonthLabel.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.MonthLabel.Location = new System.Drawing.Point(12, 163);
-            this.MonthLabel.Name = "MonthLabel";
-            this.MonthLabel.Size = new System.Drawing.Size(77, 29);
-            this.MonthLabel.TabIndex = 4;
-            this.MonthLabel.Text = "label1";
             // 
             // ColMonday
             // 
@@ -166,6 +155,26 @@
             this.ColSunday.ReadOnly = true;
             this.ColSunday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColSunday.Width = 125;
+            // 
+            // TestListBtn
+            // 
+            this.TestListBtn.Location = new System.Drawing.Point(803, 79);
+            this.TestListBtn.Name = "TestListBtn";
+            this.TestListBtn.Size = new System.Drawing.Size(138, 23);
+            this.TestListBtn.TabIndex = 3;
+            this.TestListBtn.Text = "TestList";
+            this.TestListBtn.UseVisualStyleBackColor = true;
+            this.TestListBtn.Click += new System.EventHandler(this.TestListBtn_Click);
+            // 
+            // MonthLabel
+            // 
+            this.MonthLabel.AutoSize = true;
+            this.MonthLabel.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.MonthLabel.Location = new System.Drawing.Point(12, 163);
+            this.MonthLabel.Name = "MonthLabel";
+            this.MonthLabel.Size = new System.Drawing.Size(77, 29);
+            this.MonthLabel.TabIndex = 4;
+            this.MonthLabel.Text = "label1";
             // 
             // Form1
             // 
