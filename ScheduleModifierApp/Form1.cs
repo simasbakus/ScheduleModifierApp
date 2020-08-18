@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.Office.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,35 +19,51 @@ namespace ScheduleModifierApp
         public int startingCol;  
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
+        OpenFileDialog openFileDialog = new OpenFileDialog();
         public Form1()
         {
-            //Gets data from a selected word document//
+            InitializeComponent();
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = @"C:\Users\simas\OneDrive\Documents";
             openFileDialog.Filter = "docx files (*.docx)|*.docx|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (   openFileDialog.ShowDialog() == DialogResult.OK
+                && Path.GetExtension(openFileDialog.FileName) == ".docx")
             {
-                InitializeComponent();
+                //Reads data form word document//
+
                 DocumentReader docReader = new DocumentReader();
                 docReader.openDoc(openFileDialog.FileName);
                 startingCol = docReader.firstWeekDayOfMonth();
                 month = docReader.getMonth();
                 data = docReader.getDataFromDoc();
+
+                MonthLabel.Text = month + " men.";
+
+                //Fills combobox with data//
+
+                this.namesComboBox.DataSource = data;
+                this.namesComboBox.DisplayMember = "NameAndPosition";
+
+                this.Activate();
             }
-            
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            MonthLabel.Text = month + " men.";
-
-            //Fills combobox with data//
-            
-            this.namesComboBox.DataSource = data;
-            this.namesComboBox.DisplayMember = "NameAndPosition";
-
-            this.Activate();
+            else
+            {
+                if (MessageBox.Show("File validation failed!!! Do You want to restart?",
+                                    "Error",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error) == DialogResult.No)
+                {
+                    Application.Exit();
+                }
+                else
+                {
+                    Application.Restart();
+                }
+            }
         }
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
