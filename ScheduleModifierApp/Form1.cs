@@ -30,13 +30,13 @@ namespace ScheduleModifierApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (   openFileDialog.ShowDialog() == DialogResult.OK
+            /*if (   openFileDialog.ShowDialog() == DialogResult.OK
                 && Path.GetExtension(openFileDialog.FileName) == ".docx")
-            {
+            {*/
                 //Reads data form word document//
 
                 DocumentReader docReader = new DocumentReader();
-                docReader.openDoc(openFileDialog.FileName);
+                docReader.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
                 startingCol = docReader.firstWeekDayOfMonth();
                 month = docReader.getMonth();
                 data = docReader.getDataFromDoc();
@@ -49,7 +49,7 @@ namespace ScheduleModifierApp
                 this.namesComboBox.DisplayMember = "NameAndPosition";
 
                 this.Activate();
-            }
+           /* }
             else
             {
                 if (MessageBox.Show("File validation failed!!! Do You want to restart?",
@@ -63,7 +63,7 @@ namespace ScheduleModifierApp
                 {
                     Application.Restart();
                 }
-            }
+            }*/
         }
 
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,11 +205,12 @@ namespace ScheduleModifierApp
             MessageBox.Show("List count: " + modifiedData.Count());  
             if (modifiedData.Any())
             {
-                MessageBox.Show(  "Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
-                                + "Day: " + modifiedData.Last().Day + Environment.NewLine  
+                MessageBox.Show("Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
+                                + "Day: " + modifiedData.Last().Day + Environment.NewLine
                                 + "Value: " + modifiedData.Last().Value + Environment.NewLine
                                 + "Column: " + modifiedData.Last().Col + Environment.NewLine
-                                + "Row: " + modifiedData.Last().Row + Environment.NewLine);
+                                + "Row: " + modifiedData.Last().Row + Environment.NewLine
+                                + "List ID: " + modifiedData.IndexOf(modifiedData.Last()) + Environment.NewLine);
             }
         }
     }

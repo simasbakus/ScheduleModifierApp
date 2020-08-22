@@ -42,17 +42,29 @@ namespace ScheduleModifierApp
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            //Adds the changed value to the Modified data list if textbox value is different than before//
-            
-            if (value != ModifyingHoursTextBox.Text)
+            if (   value != ModifyingHoursTextBox.Text
+                && form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) == null
+                && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
+                //adds an item to modified list
                 form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
-                
-                //updates new value in form1 dataGridView//
-
-                form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
             }
-            
+            else if (   form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null
+                     && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
+            {
+                //Value of specific employee and specific day is changed in modified list if it has already been changed before 
+                //but is NOT!! being changed to the initiial value from the document
+                form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day).Value = ModifyingHoursTextBox.Text;
+            }
+            else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
+            {
+                //item from modified list is deleted if value is changed back tto initial value of the document
+                form1.modifiedData.RemoveAll(item => item.EmployeeId == this.employeeId && item.Day == this.day);
+            }
+
+            //updates new value in form1 dataGridView//
+
+            form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
 
             //sets the boolean exitWithX to false to close the window immediatly//
 
