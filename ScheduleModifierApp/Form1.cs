@@ -197,6 +197,7 @@ namespace ScheduleModifierApp
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {
                 ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Value;
+                ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Style.BackColor = Color.LightGreen;
             }
         }
 

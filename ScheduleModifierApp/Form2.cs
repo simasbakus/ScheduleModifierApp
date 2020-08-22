@@ -43,7 +43,7 @@ namespace ScheduleModifierApp
 
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            if (   value != ModifyingHoursTextBox.Text
+            if (value != ModifyingHoursTextBox.Text
                 && form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) == null
                 && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
@@ -53,8 +53,10 @@ namespace ScheduleModifierApp
                 //updates new value in form1 dataGridView//
 
                 form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
+
+                form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
             }
-            else if (   form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null
+            else if (form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null
                      && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
                 //Value of specific employee and specific day is changed in modified list if it has already been changed before 
@@ -64,6 +66,7 @@ namespace ScheduleModifierApp
                 //updates new value in form1 dataGridView//
 
                 form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
+                form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
             }
             else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
             {
@@ -106,6 +109,8 @@ namespace ScheduleModifierApp
             form1.modifiedData.RemoveAll(item => item.EmployeeId == this.employeeId && item.Day == this.day);
 
             form1.ScheduleDataGrid.Rows[row].Cells[col].Value = form1.data[this.employeeId].Hours[this.day - 1];
+
+            form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.White;
         }
     }
 }
