@@ -31,6 +31,7 @@ namespace ScheduleModifierApp
             this.day = day;
             this.value = value;
             this.month = form1.month;
+            UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null;
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -48,6 +49,10 @@ namespace ScheduleModifierApp
             {
                 //adds an item to modified list
                 form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
+
+                //updates new value in form1 dataGridView//
+
+                form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
             }
             else if (   form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null
                      && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
@@ -55,16 +60,16 @@ namespace ScheduleModifierApp
                 //Value of specific employee and specific day is changed in modified list if it has already been changed before 
                 //but is NOT!! being changed to the initiial value from the document
                 form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day).Value = ModifyingHoursTextBox.Text;
+
+                //updates new value in form1 dataGridView//
+
+                form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
             }
             else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
             {
                 //item from modified list is deleted if value is changed back tto initial value of the document
-                form1.modifiedData.RemoveAll(item => item.EmployeeId == this.employeeId && item.Day == this.day);
+                undoChanges();
             }
-
-            //updates new value in form1 dataGridView//
-
-            form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
 
             //sets the boolean exitWithX to false to close the window immediatly//
 
@@ -88,5 +93,19 @@ namespace ScheduleModifierApp
             }
         }
 
+        private void UndoBtn_Click(object sender, EventArgs e)
+        {
+            undoChanges();
+
+            exitWithX = false;
+            this.Close();
+        }
+
+        private void undoChanges()
+        {
+            form1.modifiedData.RemoveAll(item => item.EmployeeId == this.employeeId && item.Day == this.day);
+
+            form1.ScheduleDataGrid.Rows[row].Cells[col].Value = form1.data[this.employeeId].Hours[this.day - 1];
+        }
     }
 }

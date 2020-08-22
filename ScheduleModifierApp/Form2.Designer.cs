@@ -31,6 +31,7 @@
             this.ModifyingHoursDateLabel = new System.Windows.Forms.Label();
             this.ModifyingHoursTextBox = new System.Windows.Forms.TextBox();
             this.OkBtn = new System.Windows.Forms.Button();
+            this.UndoBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ModifyingHoursDateLabel
@@ -62,11 +63,24 @@
             this.OkBtn.UseVisualStyleBackColor = true;
             this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
             // 
+            // UndoBtn
+            // 
+            this.UndoBtn.Enabled = false;
+            this.UndoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.UndoBtn.Location = new System.Drawing.Point(55, 253);
+            this.UndoBtn.Name = "UndoBtn";
+            this.UndoBtn.Size = new System.Drawing.Size(83, 34);
+            this.UndoBtn.TabIndex = 3;
+            this.UndoBtn.Text = "Undo";
+            this.UndoBtn.UseVisualStyleBackColor = true;
+            this.UndoBtn.Click += new System.EventHandler(this.UndoBtn_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 321);
+            this.Controls.Add(this.UndoBtn);
             this.Controls.Add(this.OkBtn);
             this.Controls.Add(this.ModifyingHoursTextBox);
             this.Controls.Add(this.ModifyingHoursDateLabel);
@@ -84,5 +98,6 @@
         private System.Windows.Forms.Label ModifyingHoursDateLabel;
         private System.Windows.Forms.TextBox ModifyingHoursTextBox;
         private System.Windows.Forms.Button OkBtn;
+        private System.Windows.Forms.Button UndoBtn;
     }
 }
