@@ -16,7 +16,7 @@ namespace ScheduleModifierApp
     public partial class Form1 : Form
     {
         public List<Employee> data;
-        public int startingCol;  
+        public int startingCol;
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -219,7 +219,22 @@ namespace ScheduleModifierApp
         {
             docHandler.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
             docHandler.saveToDoc(modifiedData);
+            modifiedData.Clear();
             Application.Exit();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (modifiedData.Any())
+            {
+                if (MessageBox.Show("There are unsaved changes. Do You really want to exit?",
+                                    "Exit without saving?",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
