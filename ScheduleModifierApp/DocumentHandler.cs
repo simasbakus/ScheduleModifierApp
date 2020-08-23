@@ -19,6 +19,11 @@ namespace ScheduleModifierApp
         public static _Word.Document doc;
         public static _Word.Table table1;
         public static _Word.Table table2;
+
+        /// <summary>
+        /// Opens word document
+        /// </summary>
+        /// <param name="fileName">File path of a selected word document</param>
         public void openDoc(object fileName)
         {
             wordApp = new _Word.Application();
@@ -29,7 +34,10 @@ namespace ScheduleModifierApp
             table2 = doc.Tables[2];
         }
         
-
+        /// <summary>
+        /// Gets all data from the word document
+        /// </summary>
+        /// <returns>A list of all employees and their working hours</returns>
         public List<Employee> getDataFromDoc()
         {
             var dataList = new List<Employee>();
@@ -41,10 +49,13 @@ namespace ScheduleModifierApp
                 dataList.Add(new Employee() { NameAndPosition = name, Hours = employeeSchedule });
                 i++;
             }
-            doc.Close(_Word.WdSaveOptions.wdDoNotSaveChanges);
-            wordApp.Quit();
             return dataList;
         }
+
+        /// <summary>
+        /// Gets a list of employees from word document
+        /// </summary>
+        /// <returns>A list of employees</returns>
         public List<string> getEmployeesList()
         {
             var employeesList = new List<string>();
@@ -59,12 +70,15 @@ namespace ScheduleModifierApp
             return employeesList;
         }
 
+        /// <summary>
+        /// Gets a list of selected employee working hours 
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <returns>A list of working hours</returns>
         public List<string> getEmployeeSchedule(int employeeId)
         {
             var employeeSchedule = new List<string>();
-            //gets a string type value of the day from the last column in table2//
             var lastDay = (table2.Cell(1, table2.Columns.Count).Range.Text).Substring(0,2);
-            //------------------------------------------------------------------//
             string hours;
             for (int i = 0; i < int.Parse(lastDay); i++)
             {
@@ -81,6 +95,10 @@ namespace ScheduleModifierApp
             return employeeSchedule;
         }
 
+        /// <summary>
+        /// Applies the changes from modifiedData list to the word doucument
+        /// </summary>
+        /// <param name="modifiedData">List of changes</param>
         public void saveToDoc(List<ModifiedData> modifiedData)
         {
             foreach (var item in modifiedData)
@@ -94,10 +112,29 @@ namespace ScheduleModifierApp
                     table2.Cell(item.EmployeeId + 2, item.Day - 12).Range.Text = item.Value;
                 }
             }
-            doc.Close(_Word.WdSaveOptions.wdSaveChanges);
+        }
+
+        /// <summary>
+        /// Closes word document
+        /// </summary>
+        /// <param name="save">Saves the document when set to true</param>
+        public void closeDoc(bool save)
+        {
+            if (save)
+            {
+                doc.Close(_Word.WdSaveOptions.wdSaveChanges);
+            }
+            else
+            {
+                doc.Close(_Word.WdSaveOptions.wdDoNotSaveChanges);
+            }
             wordApp.Quit();
         }
 
+        /// <summary>
+        /// Gets the weekday with which the month starts
+        /// </summary>
+        /// <returns>Zero based weekday starting from Monday</returns>
         public int firstWeekDayOfMonth()
         {
             _Word.Paragraph paragraph2 = doc.Paragraphs[2];
@@ -111,6 +148,10 @@ namespace ScheduleModifierApp
             return weekday;
         }
 
+        /// <summary>
+        /// Gets month's name from word document
+        /// </summary>
+        /// <returns>Name of the month</returns>
         public string getMonth()
         {
             _Word.Paragraph paragraph3 = doc.Paragraphs[3];

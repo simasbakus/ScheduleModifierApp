@@ -19,60 +19,118 @@ namespace ScheduleModifierApp
         public int startingCol;
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
-        OpenFileDialog openFileDialog = new OpenFileDialog();
         DocumentHandler docHandler = new DocumentHandler();
+        public string testFile = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx";
         public Form1()
         {
             InitializeComponent();
-
-            openFileDialog.InitialDirectory = @"C:\Users\simas\OneDrive\Documents";
-            openFileDialog.Filter = "docx files (*.docx)|*.docx|All files (*.*)|*.*";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            /*if (   openFileDialog.ShowDialog() == DialogResult.OK
-                && Path.GetExtension(openFileDialog.FileName) == ".docx")
-            {*/
-                //Reads data form word document//
+            /*****************************************************************************
+             Data of each employee from document is fetched and returned as List<Employee>
+             ****************************************************************************/
 
-                docHandler.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
-                startingCol = docHandler.firstWeekDayOfMonth();
-                month = docHandler.getMonth();
-                data = docHandler.getDataFromDoc();
+            docHandler.openDoc(testFile);
+            startingCol = docHandler.firstWeekDayOfMonth();
+            month = docHandler.getMonth();
+            data = docHandler.getDataFromDoc();
+            docHandler.closeDoc(false);
 
-                MonthLabel.Text = month + " men.";
+            MonthLabel.Text = month + " men.";
 
-                //Fills combobox with data//
+            //Fills combobox with data//
+            this.namesComboBox.DataSource = data;
+            this.namesComboBox.DisplayMember = "NameAndPosition";
 
-                this.namesComboBox.DataSource = data;
-                this.namesComboBox.DisplayMember = "NameAndPosition";
-
-                this.Activate();
-           /* }
-            else
-            {
-                if (MessageBox.Show("File validation failed!!! Do You want to restart?",
-                                    "Error",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Error) == DialogResult.No)
-                {
-                    Application.Exit();
-                }
-                else
-                {
-                    Application.Restart();
-                }
-            }*/
+            this.Activate();
         }
 
+        #region ***************************** EVENT TRIGGERS *******************************************
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillDataGrid(namesComboBox.SelectedIndex);
             UndoAllBtn.Enabled = modifiedData.Any(item => item.EmployeeId == namesComboBox.SelectedIndex);
         }
 
+        private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            /********************************************************************************
+             A form2 is called when double clicked on cell with value, passing in parameters:
+                employeeID from comboBox
+                day value of the selected cell
+                value of the selected cell
+                column of the selected cell
+                row of the selected cell
+             ********************************************************************************/
 
+            if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                var employeeId = namesComboBox.SelectedIndex;
+                var day = getDayOfMonth(e.RowIndex, e.ColumnIndex, startingCol);
+                var value = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                var col = e.ColumnIndex;
+                var row = e.RowIndex;
+                Form2 form2 = new Form2(this, row, col, employeeId, day, value);
+                form2.Show();
+            }
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            /********************************************************************************
+             All made changes are saved to the word document
+             ********************************************************************************/
+
+            docHandler.openDoc(testFile);
+            docHandler.saveToDoc(modifiedData);
+            docHandler.closeDoc(true);
+            modifiedData.Clear();
+            Application.Exit();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //If form is being closed while there are items in modifiedData list - warning message is shown
+            if (modifiedData.Any())
+            {
+                if (MessageBox.Show("There are unsaved changes. Do You really want to exit without saving?",
+                                    "Exit without saving?",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Warning) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        private void UndoAllBtn_Click(object sender, EventArgs e)
+        {
+            UndoAllChanges(namesComboBox.SelectedIndex);
+        }
+
+        //HACK for testing purposes only
+        private void TestListBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("List count: " + modifiedData.Count());
+            if (modifiedData.Any())
+            {
+                MessageBox.Show("Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
+                                + "Day: " + modifiedData.Last().Day + Environment.NewLine
+                                + "Value: " + modifiedData.Last().Value + Environment.NewLine
+                                + "Column: " + modifiedData.Last().Col + Environment.NewLine
+                                + "Row: " + modifiedData.Last().Row + Environment.NewLine
+                                + "List ID: " + modifiedData.IndexOf(modifiedData.Last()) + Environment.NewLine);
+            }
+        }
+        #endregion
+
+        #region *********************************** METHODS ***********************************
+        /// <summary>
+        /// Fills values of selected employee to DataGridView
+        /// </summary>
+        /// <param name="employeeId">Id of an employee selected from ComboBox</param>
         private void fillDataGrid(int employeeId)
         {
             int day = startingCol;
@@ -143,31 +201,18 @@ namespace ScheduleModifierApp
             }
 
             //Updates DataGridView from ModifiedData list//
-
             updateDataGridViewFromModifiedList(employeeId);
         }
 
-        private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //Calls a second form window for changing the slected cell value//
-
-            if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-            {
-                var employeeId = namesComboBox.SelectedIndex;
-                var day = getDayOfMonth(e.RowIndex, e.ColumnIndex, startingCol);
-                var value = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                var col = e.ColumnIndex;
-                var row = e.RowIndex;
-                Form2 form2 = new Form2(this, row, col, employeeId, day, value);
-                form2.Show();
-            }
-            
-        }
-
+        /// <summary>
+        /// Gets the date of a specific cell in form of day
+        /// </summary>
+        /// <param name="row">DataGridView cell row</param>
+        /// <param name="col">DataGridView cell column</param>
+        /// <param name="startCol">Starting cell column of the DataGridView from where it is filled</param>
+        /// <returns></returns>
         private int getDayOfMonth(int row, int col, int startCol)
         {
-            //method for getting the months day//
-
             int day = col - startCol;
             switch (row)
             {
@@ -193,6 +238,10 @@ namespace ScheduleModifierApp
             return day;
         }
         
+        /// <summary>
+        /// Inserts values in DataGridView from list of modifiedData
+        /// </summary>
+        /// <param name="employeeId">Employee which values are inserted</param>
         private void updateDataGridViewFromModifiedList(int employeeId)
         {
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
@@ -202,49 +251,17 @@ namespace ScheduleModifierApp
             }
         }
 
-        private void TestListBtn_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Deletes all list items from modifiedData list with matching employeeId
+        /// </summary>
+        /// <param name="employeeId">Identifier which items need to be deleted</param>
+        public void UndoAllChanges(int employeeId)
         {
-            MessageBox.Show("List count: " + modifiedData.Count());  
-            if (modifiedData.Any())
-            {
-                MessageBox.Show("Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
-                                + "Day: " + modifiedData.Last().Day + Environment.NewLine
-                                + "Value: " + modifiedData.Last().Value + Environment.NewLine
-                                + "Column: " + modifiedData.Last().Col + Environment.NewLine
-                                + "Row: " + modifiedData.Last().Row + Environment.NewLine
-                                + "List ID: " + modifiedData.IndexOf(modifiedData.Last()) + Environment.NewLine);
-            }
-        }
-
-        private void SaveBtn_Click(object sender, EventArgs e)
-        {
-            docHandler.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
-            docHandler.saveToDoc(modifiedData);
-            modifiedData.Clear();
-            Application.Exit();
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (modifiedData.Any())
-            {
-                if (MessageBox.Show("There are unsaved changes. Do You really want to exit without saving?",
-                                    "Exit without saving?",
-                                    MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
-
-        private void UndoAllBtn_Click(object sender, EventArgs e)
-        {
-            //undo's all changes for selected employee
             modifiedData.RemoveAll(items => items.EmployeeId == namesComboBox.SelectedIndex);
             fillDataGrid(namesComboBox.SelectedIndex);
             UndoAllBtn.Enabled = false;
             SaveBtn.Enabled = modifiedData.Any();
         }
+        #endregion
     }
 }

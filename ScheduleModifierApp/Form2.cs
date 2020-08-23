@@ -23,6 +23,10 @@ namespace ScheduleModifierApp
         private bool exitWithX = true;
         public Form2(Form1 form1, int row, int col, int employeeId, int day, string value)
         {
+            /****************************************************************************
+             Initializes values passed in from form1
+             ****************************************************************************/
+
             InitializeComponent();
             this.form1 = form1;
             this.row = row;
@@ -31,6 +35,7 @@ namespace ScheduleModifierApp
             this.day = day;
             this.value = value;
             this.month = form1.month;
+
             UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null;
         }
 
@@ -41,51 +46,37 @@ namespace ScheduleModifierApp
             ModifyingHoursTextBox.Text = value;
         }
 
+        #region ********************************** EVENT TRIGGERS *****************************************
         private void OkBtn_Click(object sender, EventArgs e)
         {
+            /****************************************************************************************
+             Creates, replaces or deletes modifiedData list item and closes form2
+             ****************************************************************************************/
+
             if (value != ModifyingHoursTextBox.Text
                 && !form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
                 && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
-                //adds an item to modified list
-                form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
-
-                //updates new value in form1 dataGridView//
-
-                form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
-
-                form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
+                applyChanges(false);
             }
             else if (form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
                      && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
-                //Value of specific employee and specific day is changed in modified list if it has already been changed before 
-                //but is NOT!! being changed to the initiial value from the document
-                form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day).Value = ModifyingHoursTextBox.Text;
-
-                //updates new value in form1 dataGridView//
-
-                form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
-                form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
+                applyChanges(true);
             }
             else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
             {
-                //item from modified list is deleted if value is changed back tto initial value of the document
                 undoChanges();
             }
 
-            //sets the boolean exitWithX to false to close the window immediatly//
-
-            exitWithX = false;
-            this.Close();
+            exitWithoutMessage();
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //If form2 is closed not from OkBtn_Click event - warning message is shown
             if (exitWithX && ModifyingHoursTextBox.Text != value)
             {
-                //if boolean exitWithX is true shows a message before closing//
-
                 if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
                                     "Exit without saving?", 
                                     MessageBoxButtons.YesNo,
@@ -94,7 +85,8 @@ namespace ScheduleModifierApp
                     e.Cancel = true;
                 }
             }
-            //enables save button in form1 if there are any items in modified list
+
+            //Enables buttons in form1 if there are items in modifiedData list
             form1.SaveBtn.Enabled = form1.modifiedData.Any();
             form1.UndoAllBtn.Enabled = form1.modifiedData.Any(item => item.EmployeeId == this.employeeId);
         }
@@ -102,18 +94,52 @@ namespace ScheduleModifierApp
         private void UndoBtn_Click(object sender, EventArgs e)
         {
             undoChanges();
-
-            exitWithX = false;
-            this.Close();
+            exitWithoutMessage();
         }
+        #endregion
 
+        #region ************************************ METHODS ******************************************
+
+        /// <summary>
+        /// Deletes selected cell changes and reverts back to original
+        /// </summary>
         private void undoChanges()
         {
             form1.modifiedData.RemoveAll(item => item.EmployeeId == this.employeeId && item.Day == this.day);
 
+            //Applies changes to DataGridView
             form1.ScheduleDataGrid.Rows[row].Cells[col].Value = form1.data[this.employeeId].Hours[this.day - 1];
-
             form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.White;
         }
+
+        /// <summary>
+        /// Creates or replaces modifiedData list item depending if it exists
+        /// </summary>
+        /// <param name="changesExist">If set to true: replaces existing modifiedData list item value with new one, else creates new item</param>
+        private void applyChanges(bool changesExist)
+        {
+            if (changesExist)
+            {
+                form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day).Value = ModifyingHoursTextBox.Text;
+            }
+            else
+            {
+                form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
+            }
+
+            //Applies changes to DataGridView
+            form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
+            form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
+        }
+
+        /// <summary>
+        /// Closes form2 without warning message
+        /// </summary>
+        public void exitWithoutMessage()
+        {
+            exitWithX = false;
+            this.Close();
+        }
+        #endregion
     }
 }
