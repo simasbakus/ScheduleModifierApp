@@ -74,6 +74,14 @@ namespace ScheduleModifierApp
                 var row = e.RowIndex;
                 Form2 form2 = new Form2(this, row, col, employeeId, day, value);
                 form2.Show();
+
+                //TEsting of drawing on cell
+
+                /*Graphics g = ScheduleDataGrid.CreateGraphics();
+                Font drawFont = new Font("Arial", 8);
+                SolidBrush drawBrush = new SolidBrush(Color.Red);
+                CreateGraphics().DrawString("1", drawFont, drawBrush, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Right, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top);
+                MessageBox.Show(ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top.ToString());*/
             }
         }
 
