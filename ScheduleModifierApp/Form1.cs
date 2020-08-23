@@ -241,6 +241,10 @@ namespace ScheduleModifierApp
         private void UndoAllBtn_Click(object sender, EventArgs e)
         {
             //undo's all changes for selected employee
+            modifiedData.RemoveAll(items => items.EmployeeId == namesComboBox.SelectedIndex);
+            fillDataGrid(namesComboBox.SelectedIndex);
+            UndoAllBtn.Enabled = false;
+            SaveBtn.Enabled = modifiedData.Any();
         }
     }
 }
