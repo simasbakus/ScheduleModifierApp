@@ -69,6 +69,7 @@ namespace ScheduleModifierApp
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillDataGrid(namesComboBox.SelectedIndex);
+            UndoAllBtn.Enabled = modifiedData.Any(item => item.EmployeeId == namesComboBox.SelectedIndex);
         }
 
 
@@ -227,7 +228,7 @@ namespace ScheduleModifierApp
         {
             if (modifiedData.Any())
             {
-                if (MessageBox.Show("There are unsaved changes. Do You really want to exit?",
+                if (MessageBox.Show("There are unsaved changes. Do You really want to exit without saving?",
                                     "Exit without saving?",
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Warning) == DialogResult.No)
@@ -235,6 +236,11 @@ namespace ScheduleModifierApp
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void UndoAllBtn_Click(object sender, EventArgs e)
+        {
+            //undo's all changes for selected employee
         }
     }
 }

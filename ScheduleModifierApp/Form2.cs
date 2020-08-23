@@ -44,7 +44,7 @@ namespace ScheduleModifierApp
         private void OkBtn_Click(object sender, EventArgs e)
         {
             if (value != ModifyingHoursTextBox.Text
-                && form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) == null
+                && !form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
                 && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
                 //adds an item to modified list
@@ -56,7 +56,7 @@ namespace ScheduleModifierApp
 
                 form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
             }
-            else if (form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null
+            else if (form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
                      && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
             {
                 //Value of specific employee and specific day is changed in modified list if it has already been changed before 
@@ -82,13 +82,13 @@ namespace ScheduleModifierApp
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (exitWithX)
+            if (exitWithX && ModifyingHoursTextBox.Text != value)
             {
                 //if boolean exitWithX is true shows a message before closing//
 
                 if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
                                     "Exit without saving?", 
-                                    MessageBoxButtons.YesNo,  
+                                    MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Warning) == DialogResult.No)
                 {
                     e.Cancel = true;
@@ -96,6 +96,7 @@ namespace ScheduleModifierApp
             }
             //enables save button in form1 if there are any items in modified list
             form1.SaveBtn.Enabled = form1.modifiedData.Any();
+            form1.UndoAllBtn.Enabled = form1.modifiedData.Any(item => item.EmployeeId == this.employeeId);
         }
 
         private void UndoBtn_Click(object sender, EventArgs e)

@@ -41,6 +41,7 @@
             this.TestListBtn = new System.Windows.Forms.Button();
             this.MonthLabel = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
+            this.UndoAllBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,11 +190,23 @@
             this.SaveBtn.UseVisualStyleBackColor = true;
             this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
+            // UndoAllBtn
+            // 
+            this.UndoAllBtn.Enabled = false;
+            this.UndoAllBtn.Location = new System.Drawing.Point(961, 163);
+            this.UndoAllBtn.Name = "UndoAllBtn";
+            this.UndoAllBtn.Size = new System.Drawing.Size(222, 29);
+            this.UndoAllBtn.TabIndex = 6;
+            this.UndoAllBtn.Text = "Undo all employee changes";
+            this.UndoAllBtn.UseVisualStyleBackColor = true;
+            this.UndoAllBtn.Click += new System.EventHandler(this.UndoAllBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
+            this.Controls.Add(this.UndoAllBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.MonthLabel);
             this.Controls.Add(this.TestListBtn);
@@ -223,6 +236,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSatuday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
         public System.Windows.Forms.Button SaveBtn;
+        public System.Windows.Forms.Button UndoAllBtn;
     }
 }
 
