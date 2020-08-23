@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.namesComboBox = new System.Windows.Forms.ComboBox();
             this.ScheduleDataGrid = new System.Windows.Forms.DataGridView();
             this.ColMonday = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +40,7 @@
             this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TestListBtn = new System.Windows.Forms.Button();
             this.MonthLabel = new System.Windows.Forms.Label();
+            this.SaveBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,14 +72,14 @@
             this.ColFriday,
             this.ColSatuday,
             this.ColSunday});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.ScheduleDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.ScheduleDataGrid.Location = new System.Drawing.Point(12, 210);
             this.ScheduleDataGrid.MultiSelect = false;
@@ -176,11 +177,23 @@
             this.MonthLabel.TabIndex = 4;
             this.MonthLabel.Text = "label1";
             // 
+            // SaveBtn
+            // 
+            this.SaveBtn.Enabled = false;
+            this.SaveBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.SaveBtn.Location = new System.Drawing.Point(1006, 465);
+            this.SaveBtn.Name = "SaveBtn";
+            this.SaveBtn.Size = new System.Drawing.Size(177, 49);
+            this.SaveBtn.TabIndex = 5;
+            this.SaveBtn.Text = "Save Changes";
+            this.SaveBtn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
+            this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.MonthLabel);
             this.Controls.Add(this.TestListBtn);
             this.Controls.Add(this.ScheduleDataGrid);
@@ -207,6 +220,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFriday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSatuday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
+        public System.Windows.Forms.Button SaveBtn;
     }
 }
 

@@ -94,6 +94,8 @@ namespace ScheduleModifierApp
                     e.Cancel = true;
                 }
             }
+            //enables save button in form1 if there are any items in modified list
+            form1.SaveBtn.Enabled = form1.modifiedData.Any();
         }
 
         private void UndoBtn_Click(object sender, EventArgs e)
