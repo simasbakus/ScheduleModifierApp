@@ -11,9 +11,9 @@ using _Word = Microsoft.Office.Interop.Word;
 
 namespace ScheduleModifierApp
 {
-    public class DocumentReader
+    public class DocumentHandler
     {
-        public static _Word.Application wordApp = new _Word.Application();
+        public static _Word.Application wordApp;
         public static object oMissing = System.Reflection.Missing.Value;
         public static object oVisible = false;
         public static _Word.Document doc;
@@ -21,6 +21,7 @@ namespace ScheduleModifierApp
         public static _Word.Table table2;
         public void openDoc(object fileName)
         {
+            wordApp = new _Word.Application();
             doc = wordApp.Documents.Open(ref fileName, ref oMissing, ref oMissing, ref oMissing,
                                          ref oMissing, ref oMissing, ref oMissing, ref oMissing,
                                          ref oMissing, ref oMissing, ref oMissing, ref oVisible);
@@ -79,6 +80,24 @@ namespace ScheduleModifierApp
             }
             return employeeSchedule;
         }
+
+        public void saveToDoc(List<ModifiedData> modifiedData)
+        {
+            foreach (var item in modifiedData)
+            {
+                if (item.Day < 17)
+                {
+                    table1.Cell(item.EmployeeId + 2, item.Day + 4).Range.Text = item.Value;
+                }
+                else
+                {
+                    table2.Cell(item.EmployeeId + 2, item.Day - 12).Range.Text = item.Value;
+                }
+            }
+            doc.Close(_Word.WdSaveOptions.wdSaveChanges);
+            wordApp.Quit();
+        }
+
         public int firstWeekDayOfMonth()
         {
             _Word.Paragraph paragraph2 = doc.Paragraphs[2];

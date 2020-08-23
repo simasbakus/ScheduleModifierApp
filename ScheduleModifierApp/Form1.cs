@@ -20,6 +20,7 @@ namespace ScheduleModifierApp
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         OpenFileDialog openFileDialog = new OpenFileDialog();
+        DocumentHandler docHandler = new DocumentHandler();
         public Form1()
         {
             InitializeComponent();
@@ -35,11 +36,10 @@ namespace ScheduleModifierApp
             {*/
                 //Reads data form word document//
 
-                DocumentReader docReader = new DocumentReader();
-                docReader.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
-                startingCol = docReader.firstWeekDayOfMonth();
-                month = docReader.getMonth();
-                data = docReader.getDataFromDoc();
+                docHandler.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
+                startingCol = docHandler.firstWeekDayOfMonth();
+                month = docHandler.getMonth();
+                data = docHandler.getDataFromDoc();
 
                 MonthLabel.Text = month + " men.";
 
@@ -213,6 +213,13 @@ namespace ScheduleModifierApp
                                 + "Row: " + modifiedData.Last().Row + Environment.NewLine
                                 + "List ID: " + modifiedData.IndexOf(modifiedData.Last()) + Environment.NewLine);
             }
+        }
+
+        private void SaveBtn_Click(object sender, EventArgs e)
+        {
+            docHandler.openDoc(@"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx");
+            docHandler.saveToDoc(modifiedData);
+            Application.Exit();
         }
     }
 }
