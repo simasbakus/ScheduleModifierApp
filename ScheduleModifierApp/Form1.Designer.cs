@@ -74,10 +74,10 @@
             this.ColSatuday,
             this.ColSunday});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle1;
@@ -94,6 +94,7 @@
             this.ScheduleDataGrid.Size = new System.Drawing.Size(1171, 240);
             this.ScheduleDataGrid.TabIndex = 2;
             this.ScheduleDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleDataGrid_CellDoubleClick);
+            this.ScheduleDataGrid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.ScheduleDataGrid_CellPainting);
             // 
             // ColMonday
             // 

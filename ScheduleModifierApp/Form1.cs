@@ -75,12 +75,12 @@ namespace ScheduleModifierApp
                 Form2 form2 = new Form2(this, row, col, employeeId, day, value);
                 form2.Show();
 
-                //TEsting of drawing on cell
+                //TODO Testing of drawing on cell **************************************
 
                 /*Graphics g = ScheduleDataGrid.CreateGraphics();
                 Font drawFont = new Font("Arial", 8);
                 SolidBrush drawBrush = new SolidBrush(Color.Red);
-                CreateGraphics().DrawString("1", drawFont, drawBrush, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Right, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top);
+                CreateGraphics().DrawString("1", drawFont, drawBrush, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Right, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top + 150);
                 MessageBox.Show(ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top.ToString());*/
             }
         }
@@ -116,6 +116,29 @@ namespace ScheduleModifierApp
         private void UndoAllBtn_Click(object sender, EventArgs e)
         {
             UndoAllChanges(namesComboBox.SelectedIndex);
+        }
+
+        private void ScheduleDataGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            /*****************************************************************************
+             Draws a blue ractangle inside the borders of a selected cell
+             *******************************************************************************/
+
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected == true)
+                {
+                    e.Paint(e.CellBounds, DataGridViewPaintParts.All & ~DataGridViewPaintParts.Border);
+                    using (Pen p = new Pen(Color.Blue, 1))
+                    {
+                        Rectangle rect = e.CellBounds;
+                        rect.Width -= 2;
+                        rect.Height -= 2;
+                        e.Graphics.DrawRectangle(p, rect);
+                    }
+                    e.Handled = true;
+                }
+            }
         }
 
         //HACK for testing purposes only
