@@ -75,6 +75,8 @@ namespace ScheduleModifierApp
                 Form2 form2 = new Form2(this, row, col, employeeId, day, value);
                 form2.Show();
 
+
+
                 //TODO Testing of drawing on cell **************************************
 
                 /*Graphics g = ScheduleDataGrid.CreateGraphics();
@@ -164,71 +166,28 @@ namespace ScheduleModifierApp
         /// <param name="employeeId">Id of an employee selected from ComboBox</param>
         private void fillDataGrid(int employeeId)
         {
-            int day = startingCol;
             ScheduleDataGrid.Rows.Clear();
-            List<string> employeeHours = data[employeeId].Hours;
-            DataGridViewRow gridRow = new DataGridViewRow();
             ScheduleDataGrid.Rows.Add();
-            foreach (var item in employeeHours)
+            int column = startingCol;
+            int daysToSubtract = 0;
+            foreach (var item in data[employeeId].Hours)
             {
-                if (day < 7)
+                /**************************************************************************
+                if column is the first column in dataGridView (except row 0) a new row is added,
+                and value is added to the first cell
+                else: only value is added
+                **************************************************************************/
+                if ((column % 7) == 0 && column != 0)
                 {
-                    ScheduleDataGrid.Rows[0].Cells[day].Value = item;
+                    ScheduleDataGrid.Rows.Add();
+                    ScheduleDataGrid[0, ScheduleDataGrid.RowCount - 1].Value = item;
+                    daysToSubtract = daysToSubtract + 7;
                 }
-                else if (day == 7)
+                else
                 {
-                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[0].Clone();
-                    gridRow.Cells[day - 7].Value = item;
+                    ScheduleDataGrid[column - daysToSubtract, ScheduleDataGrid.RowCount - 1].Value = item;
                 }
-                else if (day > 7 && day < 14)
-                {
-                    gridRow.Cells[day - 7].Value = item;
-                }
-                else if (day == 14)
-                {
-                    ScheduleDataGrid.Rows.Add(gridRow);
-                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[1].Clone();
-                    gridRow.Cells[day - 14].Value = item;
-                }
-                else if (day > 14 && day < 21)
-                {
-                    gridRow.Cells[day - 14].Value = item;
-                }
-                else if (day == 21)
-                {
-                    ScheduleDataGrid.Rows.Add(gridRow);
-                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[2].Clone();
-                    gridRow.Cells[day - 21].Value = item;
-                }
-                else if (day > 21 && day < 28)
-                {
-                    gridRow.Cells[day - 21].Value = item;
-                }
-                else if (day == 28)
-                {
-                    ScheduleDataGrid.Rows.Add(gridRow);
-                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[3].Clone();
-                    gridRow.Cells[day - 28].Value = item;
-                }
-                else if (day > 28 && day < 35)
-                {
-                    gridRow.Cells[day - 28].Value = item;
-                }
-                else if (day == 35)
-                {
-                    ScheduleDataGrid.Rows.Add(gridRow);
-                    gridRow = (DataGridViewRow)ScheduleDataGrid.Rows[4].Clone();
-                    gridRow.Cells[day - 35].Value = item;
-                }
-                else if (day > 35 && day < 42)
-                {
-                    gridRow.Cells[day - 35].Value = item;
-                }
-                day++;
-                if (day == employeeHours.Count + startingCol)
-                {
-                    ScheduleDataGrid.Rows.Add(gridRow);
-                }
+                column++;
             }
 
             //Updates DataGridView from ModifiedData list//
@@ -293,6 +252,7 @@ namespace ScheduleModifierApp
             UndoAllBtn.Enabled = false;
             SaveBtn.Enabled = modifiedData.Any();
         }
+
         #endregion
     }
 }
