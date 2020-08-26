@@ -174,23 +174,17 @@ namespace ScheduleModifierApp
             {
                 /**************************************************************************
                 if column is the first column in dataGridView (except row 0) a new row is added,
-                and value is added to the first cell
-                else: only value is added
+                then value is added to the cell
                 **************************************************************************/
                 if ((column % 7) == 0 && column != 0)
                 {
                     ScheduleDataGrid.Rows.Add();
-                    ScheduleDataGrid[0, ScheduleDataGrid.RowCount - 1].Value = item;
                     daysToSubtract = daysToSubtract + 7;
                 }
-                else
-                {
-                    ScheduleDataGrid[column - daysToSubtract, ScheduleDataGrid.RowCount - 1].Value = item;
-                }
+                ScheduleDataGrid[column - daysToSubtract, ScheduleDataGrid.RowCount - 1].Value = item;
                 column++;
             }
 
-            //Updates DataGridView from ModifiedData list//
             updateDataGridViewFromModifiedList(employeeId);
         }
 
