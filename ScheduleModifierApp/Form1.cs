@@ -74,16 +74,6 @@ namespace ScheduleModifierApp
                 var row = e.RowIndex;
                 Form2 form2 = new Form2(this, row, col, employeeId, day, value);
                 form2.Show();
-
-
-
-                //TODO Testing of drawing on cell **************************************
-
-                /*Graphics g = ScheduleDataGrid.CreateGraphics();
-                Font drawFont = new Font("Arial", 8);
-                SolidBrush drawBrush = new SolidBrush(Color.Red);
-                CreateGraphics().DrawString("1", drawFont, drawBrush, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Right, ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top + 150);
-                MessageBox.Show(ScheduleDataGrid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true).Top.ToString());*/
             }
         }
 
@@ -117,7 +107,11 @@ namespace ScheduleModifierApp
 
         private void UndoAllBtn_Click(object sender, EventArgs e)
         {
-            UndoAllChanges(namesComboBox.SelectedIndex);
+            undoChanges(namesComboBox.SelectedIndex);
+
+            //TODO btton enabling???
+            UndoAllBtn.Enabled = false;
+            SaveBtn.Enabled = modifiedData.Any();
         }
 
         private void ScheduleDataGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -164,7 +158,7 @@ namespace ScheduleModifierApp
         /// Fills values of selected employee to DataGridView
         /// </summary>
         /// <param name="employeeId">Id of an employee selected from ComboBox</param>
-        private void fillDataGrid(int employeeId)
+        public void fillDataGrid(int employeeId)
         {
             ScheduleDataGrid.Rows.Clear();
             ScheduleDataGrid.Rows.Add();
@@ -231,7 +225,6 @@ namespace ScheduleModifierApp
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {
                 ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Value;
-                ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Style.BackColor = Color.LightGreen;
             }
         }
 
@@ -239,12 +232,21 @@ namespace ScheduleModifierApp
         /// Deletes all list items from modifiedData list with matching employeeId
         /// </summary>
         /// <param name="employeeId">Identifier which items need to be deleted</param>
-        public void UndoAllChanges(int employeeId)
+        public void undoChanges(int employeeId)
         {
-            modifiedData.RemoveAll(items => items.EmployeeId == namesComboBox.SelectedIndex);
+            modifiedData.RemoveAll(items => items.EmployeeId == employeeId);
             fillDataGrid(namesComboBox.SelectedIndex);
-            UndoAllBtn.Enabled = false;
-            SaveBtn.Enabled = modifiedData.Any();
+        }
+
+        /// <summary>
+        /// Deletes all list items from modifiedData list with matching employeeId and day
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="day"></param>
+        public void undoChanges(int employeeId, int day)
+        {
+            modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Day == day);
+            fillDataGrid(namesComboBox.SelectedIndex);
         }
 
         #endregion

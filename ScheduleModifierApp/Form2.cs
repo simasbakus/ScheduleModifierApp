@@ -41,9 +41,17 @@ namespace ScheduleModifierApp
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine 
-                                           + month + " men. " + day.ToString() + " dienos darbo valandos";
-            ModifyingHoursTextBox.Text = value;
+            if (form1.WeekCheckBox.Checked)
+            {
+                ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine
+                                               + month + " men. " + (this.row + 1).ToString() + " savaites darbo valandos";
+            }
+            else
+            {
+                ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine
+                                               + month + " men. " + day.ToString() + " dienos darbo valandos";
+                ModifyingHoursTextBox.Text   = value;
+            }
         }
 
         #region ********************************** EVENT TRIGGERS *****************************************
@@ -53,21 +61,31 @@ namespace ScheduleModifierApp
              Creates, replaces or deletes modifiedData list item and closes form2
              ****************************************************************************************/
 
-            if (value != ModifyingHoursTextBox.Text
+
+            //REDO Refactor method: need to be able to differ between day change and week change
+            if (!form1.WeekCheckBox.Checked)
+            {
+                if (value != ModifyingHoursTextBox.Text
                 && !form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
                 && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
-            {
-                applyChanges(false);
+                {
+                    applyChanges(false);
+                }
+                else if (form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
+                         && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
+                {
+                    applyChanges(true);
+                }
+                else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
+                {
+                    form1.undoChanges(this.employeeId, this.day);
+                }
             }
-            else if (form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
-                     && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
+            else
             {
-                applyChanges(true);
+                MessageBox.Show("Apply changes for a week not yet implemented!");
             }
-            else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
-            {
-                undoChanges();
-            }
+            
 
             exitWithoutMessage();
         }
@@ -75,7 +93,7 @@ namespace ScheduleModifierApp
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             //If form2 is closed not from OkBtn_Click event - warning message is shown
-            if (exitWithX && ModifyingHoursTextBox.Text != value)
+            if (exitWithX && ModifyingHoursTextBox.Text != value && !form1.WeekCheckBox.Checked)
             {
                 if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
                                     "Exit without saving?", 
@@ -93,24 +111,12 @@ namespace ScheduleModifierApp
 
         private void UndoBtn_Click(object sender, EventArgs e)
         {
-            undoChanges();
+            form1.undoChanges(this.employeeId, this.day);
             exitWithoutMessage();
         }
         #endregion
 
         #region ************************************ METHODS ******************************************
-
-        /// <summary>
-        /// Deletes selected cell changes and reverts back to original
-        /// </summary>
-        private void undoChanges()
-        {
-            form1.modifiedData.RemoveAll(item => item.EmployeeId == this.employeeId && item.Day == this.day);
-
-            //Applies changes to DataGridView
-            form1.ScheduleDataGrid.Rows[row].Cells[col].Value = form1.data[this.employeeId].Hours[this.day - 1];
-            form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.White;
-        }
 
         /// <summary>
         /// Creates or replaces modifiedData list item depending if it exists
@@ -127,9 +133,7 @@ namespace ScheduleModifierApp
                 form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
             }
 
-            //Applies changes to DataGridView
-            form1.ScheduleDataGrid.Rows[row].Cells[col].Value = ModifyingHoursTextBox.Text;
-            form1.ScheduleDataGrid.Rows[row].Cells[col].Style.BackColor = Color.LightGreen;
+            form1.fillDataGrid(form1.namesComboBox.SelectedIndex);
         }
 
         /// <summary>

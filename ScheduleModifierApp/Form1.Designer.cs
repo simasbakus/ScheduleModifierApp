@@ -42,6 +42,7 @@
             this.MonthLabel = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.UndoAllBtn = new System.Windows.Forms.Button();
+            this.WeekCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ScheduleDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +63,7 @@
             this.ScheduleDataGrid.AllowUserToDeleteRows = false;
             this.ScheduleDataGrid.AllowUserToResizeColumns = false;
             this.ScheduleDataGrid.AllowUserToResizeRows = false;
+            this.ScheduleDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.ScheduleDataGrid.BackgroundColor = System.Drawing.SystemColors.Menu;
             this.ScheduleDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ScheduleDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -79,7 +81,7 @@
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.ScheduleDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.ScheduleDataGrid.Location = new System.Drawing.Point(12, 210);
@@ -202,11 +204,23 @@
             this.UndoAllBtn.UseVisualStyleBackColor = true;
             this.UndoAllBtn.Click += new System.EventHandler(this.UndoAllBtn_Click);
             // 
+            // WeekCheckBox
+            // 
+            this.WeekCheckBox.AutoSize = true;
+            this.WeekCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.WeekCheckBox.Location = new System.Drawing.Point(803, 165);
+            this.WeekCheckBox.Name = "WeekCheckBox";
+            this.WeekCheckBox.Size = new System.Drawing.Size(123, 24);
+            this.WeekCheckBox.TabIndex = 7;
+            this.WeekCheckBox.Text = "Modify week";
+            this.WeekCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1212, 535);
+            this.Controls.Add(this.WeekCheckBox);
             this.Controls.Add(this.UndoAllBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.MonthLabel);
@@ -238,6 +252,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ColSunday;
         public System.Windows.Forms.Button SaveBtn;
         public System.Windows.Forms.Button UndoAllBtn;
+        public System.Windows.Forms.CheckBox WeekCheckBox;
     }
 }
 
