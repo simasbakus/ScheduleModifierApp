@@ -57,33 +57,13 @@ namespace ScheduleModifierApp
         #region ********************************** EVENT TRIGGERS *****************************************
         private void OkBtn_Click(object sender, EventArgs e)
         {
-            /****************************************************************************************
-             Creates, replaces or deletes modifiedData list item and closes form2
-             ****************************************************************************************/
-
-
-            //REDO Refactor method: need to be able to differ between day change and week change
-            if (!form1.WeekCheckBox.Checked)
+            if (form1.WeekCheckBox.Checked)
             {
-                if (value != ModifyingHoursTextBox.Text
-                && !form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
-                && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
-                {
-                    applyChanges(false);
-                }
-                else if (form1.modifiedData.Any(item => item.EmployeeId == this.employeeId && item.Day == this.day)
-                         && form1.data[this.employeeId].Hours[this.day - 1] != ModifyingHoursTextBox.Text)
-                {
-                    applyChanges(true);
-                }
-                else if (form1.data[this.employeeId].Hours[this.day - 1] == ModifyingHoursTextBox.Text)
-                {
-                    form1.undoChanges(this.employeeId, this.day);
-                }
+                form1.applyChanges(ModifyingHoursTextBox.Text, this.employeeId, this.row);
             }
             else
             {
-                MessageBox.Show("Apply changes for a week not yet implemented!");
+                form1.applyChanges(ModifyingHoursTextBox.Text, this.employeeId, this.row, this.col, this.day);
             }
             
 
@@ -107,6 +87,7 @@ namespace ScheduleModifierApp
             //Enables buttons in form1 if there are items in modifiedData list
             form1.SaveBtn.Enabled = form1.modifiedData.Any();
             form1.UndoAllBtn.Enabled = form1.modifiedData.Any(item => item.EmployeeId == this.employeeId);
+            form1.fillDataGrid(this.employeeId);
         }
 
         private void UndoBtn_Click(object sender, EventArgs e)
@@ -117,24 +98,6 @@ namespace ScheduleModifierApp
         #endregion
 
         #region ************************************ METHODS ******************************************
-
-        /// <summary>
-        /// Creates or replaces modifiedData list item depending if it exists
-        /// </summary>
-        /// <param name="changesExist">If set to true: replaces existing modifiedData list item value with new one, else creates new item</param>
-        private void applyChanges(bool changesExist)
-        {
-            if (changesExist)
-            {
-                form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day).Value = ModifyingHoursTextBox.Text;
-            }
-            else
-            {
-                form1.modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = ModifyingHoursTextBox.Text, Col = col, Row = row });
-            }
-
-            form1.fillDataGrid(form1.namesComboBox.SelectedIndex);
-        }
 
         /// <summary>
         /// Closes form2 without warning message

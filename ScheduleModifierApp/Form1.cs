@@ -43,8 +43,6 @@ namespace ScheduleModifierApp
             //Fills combobox with data//
             this.namesComboBox.DataSource = data;
             this.namesComboBox.DisplayMember = "NameAndPosition";
-
-            this.Activate();
         }
 
         #region ***************************** EVENT TRIGGERS *******************************************
@@ -68,10 +66,10 @@ namespace ScheduleModifierApp
             if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 var employeeId = namesComboBox.SelectedIndex;
-                var day = getDayOfMonth(e.RowIndex, e.ColumnIndex, startingCol);
                 var value = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                 var col = e.ColumnIndex;
                 var row = e.RowIndex;
+                int day = getDayOfMonth(row, col, startingCol);
                 Form2 form2 = new Form2(this, row, col, employeeId, day, value);
                 form2.Show();
             }
@@ -189,7 +187,7 @@ namespace ScheduleModifierApp
         /// <param name="col">DataGridView cell column</param>
         /// <param name="startCol">Starting cell column of the DataGridView from where it is filled</param>
         /// <returns></returns>
-        private int getDayOfMonth(int row, int col, int startCol)
+        public int getDayOfMonth(int row, int col, int startCol)
         {
             int day = col - startCol;
             switch (row)
@@ -239,7 +237,7 @@ namespace ScheduleModifierApp
         }
 
         /// <summary>
-        /// Deletes all list items from modifiedData list with matching employeeId and day
+        /// Deletes single list item from modifiedData list with matching employeeId and day
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="day"></param>
@@ -249,6 +247,70 @@ namespace ScheduleModifierApp
             fillDataGrid(namesComboBox.SelectedIndex);
         }
 
+        /// <summary>
+        /// Adds changes to modified list for a whole week
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="employeeId"></param>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        public void applyChanges(string value, int employeeId, int row)
+        {
+            /*********************************************************************************
+            Adds new list item to modified list if theres none with the same employeeId and day
+            Changes the value of the list item if one exists with the same employeeId and day
+            Deletes the list item if the value passed is the same as the initial value 
+            *********************************************************************************/
+            for (int col = 0; col < 5; col++)
+            {
+                int day = getDayOfMonth(row, col, startingCol);
+
+                if (   !modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
+                    && data[employeeId].Hours[day - 1] != value)
+                {
+                    modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
+                }
+                else if (   modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
+                         && data[employeeId].Hours[day - 1] != value)
+                {
+                    modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == day).Value = value;
+                }
+                else if (data[employeeId].Hours[day - 1] == value)
+                {
+                    undoChanges(employeeId, day);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds changes to modified list for a single day
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="employeeId"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        public void applyChanges(string value, int employeeId, int row, int col, int day)
+        {
+            /*********************************************************************************
+            Adds new list item to modified list if theres none with the same employeeId and day
+            Changes the value of the list item if one exists with the same employeeId and day
+            Deletes the list item if the value passed is the same as the initial value 
+            *********************************************************************************/
+            if (   !modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
+                && data[employeeId].Hours[day - 1] != value)
+            {
+                modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
+            }
+            else if (   modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
+                     && data[employeeId].Hours[day - 1] != value)
+            {
+                modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == day).Value = value;
+            }
+            else if (data[employeeId].Hours[day - 1] == value)
+            {
+                undoChanges(employeeId, day);
+            }
+        }
         #endregion
     }
 }
