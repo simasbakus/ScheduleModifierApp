@@ -20,7 +20,7 @@ namespace ScheduleModifierApp
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         DocumentHandler docHandler = new DocumentHandler();
-        public string testFile = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugpjucio_Test.docx";
+        public string testFile = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugsejo.docx";
         public Form1()
         {
             InitializeComponent();
@@ -62,11 +62,11 @@ namespace ScheduleModifierApp
                 column of the selected cell
                 row of the selected cell
              ********************************************************************************/
-
             if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
             {
                 var employeeId = namesComboBox.SelectedIndex;
-                var value = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                var initValue = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                var value = initValue.Substring(initValue.IndexOf(Environment.NewLine) + 2);
                 var col = e.ColumnIndex;
                 var row = e.RowIndex;
                 int day = getDayOfMonth(row, col, startingCol);
@@ -173,7 +173,7 @@ namespace ScheduleModifierApp
                     ScheduleDataGrid.Rows.Add();
                     daysToSubtract = daysToSubtract + 7;
                 }
-                ScheduleDataGrid[column - daysToSubtract, ScheduleDataGrid.RowCount - 1].Value = item;
+                ScheduleDataGrid[column - daysToSubtract, ScheduleDataGrid.RowCount - 1].Value = (column - startingCol + 1) + Environment.NewLine + item;
                 column++;
             }
 
@@ -222,7 +222,7 @@ namespace ScheduleModifierApp
         {
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {
-                ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Value;
+                ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Day + Environment.NewLine + item.Value;
             }
         }
 
