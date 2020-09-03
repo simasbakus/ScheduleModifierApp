@@ -94,11 +94,11 @@ namespace ScheduleModifierApp
         {
             if (form1.WeekCheckBox.Checked)
             {
-                form1.undoChanges(this.employeeId, this.day, this.row);
+                form1.undoChanges(this.employeeId, this.row);
             }
             else
             {
-                form1.undoChanges(this.employeeId, this.day);
+                form1.undoChanges(this.employeeId, this.row, this.col);
             }
             exitWithoutMessage();
         }
@@ -115,7 +115,8 @@ namespace ScheduleModifierApp
             this.Close();
         }
 
-        //TODO Undo whole week changes when undoBtn pressed if checkbox for week is selected
+        //TODO applyBtn enabled only if fill in has some value
+        //Issue when fill in is empty and apply is pressed when changing whole week values
         #endregion
     }
 }

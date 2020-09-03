@@ -237,27 +237,28 @@ namespace ScheduleModifierApp
         }
 
         /// <summary>
-        /// Deletes single list item from modifiedData list with matching employeeId and day
-        /// </summary>
-        /// <param name="employeeId"></param>
-        /// <param name="day"></param>
-        public void undoChanges(int employeeId, int day)
-        {
-            modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Day == day);
-            fillDataGrid(namesComboBox.SelectedIndex);
-        }
-
-        /// <summary>
-        /// Deletes all list item from modifiedData list with matching employeeId and row
+        /// Deletes all list items from modifiedData list with matching employeeId and row
         /// </summary>
         /// <param name="employeeId"></param>
         /// <param name="row"></param>
-        public void undoChanges(int employeeId, int day, int row)
+        public void undoChanges(int employeeId, int row)
         {
             for (int col = 0; col < 5; col++)
             {
                 modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Row == row);
             }
+            fillDataGrid(namesComboBox.SelectedIndex);
+        }
+
+        /// <summary>
+        /// Deletes single list item from modifiedData list with matching employeeId, col and row
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        public void undoChanges(int employeeId, int row, int col)
+        {
+            modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Row == row && item.Col == col);
             fillDataGrid(namesComboBox.SelectedIndex);
         }
 
@@ -293,7 +294,7 @@ namespace ScheduleModifierApp
                     }
                     else if (data[employeeId].Hours[day - 1] == value)
                     {
-                        undoChanges(employeeId, day);
+                        undoChanges(employeeId, row, col);
                     }
                 }
             }
@@ -325,7 +326,7 @@ namespace ScheduleModifierApp
             }
             else if (data[employeeId].Hours[day - 1] == value)
             {
-                undoChanges(employeeId, day);
+                undoChanges(employeeId, row, col);
             }
         }
 
