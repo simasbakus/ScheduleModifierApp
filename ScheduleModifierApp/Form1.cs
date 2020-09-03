@@ -62,11 +62,11 @@ namespace ScheduleModifierApp
                 column of the selected cell
                 row of the selected cell
              ********************************************************************************/
-            if (ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            if (ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Value != null)
             {
                 var employeeId = namesComboBox.SelectedIndex;
-                var initValue = ScheduleDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
-                var value = initValue.Substring(initValue.IndexOf(Environment.NewLine) + 2);
+                var value = ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Value.ToString();
+                value = value.Substring(value.IndexOf(Environment.NewLine) + 2);
                 var col = e.ColumnIndex;
                 var row = e.RowIndex;
                 int day = getDayOfMonth(row, col, startingCol);
@@ -107,7 +107,7 @@ namespace ScheduleModifierApp
         {
             undoChanges(namesComboBox.SelectedIndex);
 
-            //TODO btton enabling???
+            //TODO btton enabling method???
             UndoAllBtn.Enabled = false;
             SaveBtn.Enabled = modifiedData.Any();
         }
@@ -248,6 +248,20 @@ namespace ScheduleModifierApp
         }
 
         /// <summary>
+        /// Deletes all list item from modifiedData list with matching employeeId and row
+        /// </summary>
+        /// <param name="employeeId"></param>
+        /// <param name="row"></param>
+        public void undoChanges(int employeeId, int day, int row)
+        {
+            for (int col = 0; col < 5; col++)
+            {
+                modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Row == row);
+            }
+            fillDataGrid(namesComboBox.SelectedIndex);
+        }
+
+        /// <summary>
         /// Adds changes to modified list for a whole week
         /// </summary>
         /// <param name="value"></param>
@@ -263,21 +277,24 @@ namespace ScheduleModifierApp
             *********************************************************************************/
             for (int col = 0; col < 5; col++)
             {
-                int day = getDayOfMonth(row, col, startingCol);
+                if (ScheduleDataGrid[col,row].Value != null)
+                {
+                    int day = getDayOfMonth(row, col, startingCol);
 
-                if (   !modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
-                    && data[employeeId].Hours[day - 1] != value)
-                {
-                    modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
-                }
-                else if (   modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
-                         && data[employeeId].Hours[day - 1] != value)
-                {
-                    modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == day).Value = value;
-                }
-                else if (data[employeeId].Hours[day - 1] == value)
-                {
-                    undoChanges(employeeId, day);
+                    if (!modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
+                        && data[employeeId].Hours[day - 1] != value)
+                    {
+                        modifiedData.Add(new ModifiedData() { EmployeeId = employeeId, Day = day, Value = value, Col = col, Row = row });
+                    }
+                    else if (modifiedData.Any(item => item.EmployeeId == employeeId && item.Day == day)
+                             && data[employeeId].Hours[day - 1] != value)
+                    {
+                        modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == day).Value = value;
+                    }
+                    else if (data[employeeId].Hours[day - 1] == value)
+                    {
+                        undoChanges(employeeId, day);
+                    }
                 }
             }
         }
@@ -311,6 +328,8 @@ namespace ScheduleModifierApp
                 undoChanges(employeeId, day);
             }
         }
+
+        //TODO Vacation form
         #endregion
     }
 }

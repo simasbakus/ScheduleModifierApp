@@ -92,7 +92,14 @@ namespace ScheduleModifierApp
 
         private void UndoBtn_Click(object sender, EventArgs e)
         {
-            form1.undoChanges(this.employeeId, this.day);
+            if (form1.WeekCheckBox.Checked)
+            {
+                form1.undoChanges(this.employeeId, this.day, this.row);
+            }
+            else
+            {
+                form1.undoChanges(this.employeeId, this.day);
+            }
             exitWithoutMessage();
         }
         #endregion
@@ -107,6 +114,8 @@ namespace ScheduleModifierApp
             exitWithX = false;
             this.Close();
         }
+
+        //TODO Undo whole week changes when undoBtn pressed if checkbox for week is selected
         #endregion
     }
 }
