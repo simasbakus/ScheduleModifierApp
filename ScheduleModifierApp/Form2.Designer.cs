@@ -67,11 +67,12 @@
             // 
             // UndoBtn
             // 
+            this.UndoBtn.AutoSize = true;
             this.UndoBtn.Enabled = false;
             this.UndoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.UndoBtn.Location = new System.Drawing.Point(55, 253);
             this.UndoBtn.Name = "UndoBtn";
-            this.UndoBtn.Size = new System.Drawing.Size(83, 34);
+            this.UndoBtn.Size = new System.Drawing.Size(98, 34);
             this.UndoBtn.TabIndex = 3;
             this.UndoBtn.Text = "Undo";
             this.UndoBtn.UseVisualStyleBackColor = true;

@@ -52,6 +52,7 @@ namespace ScheduleModifierApp
             {
                 ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine
                                                + month + " men. " + (this.row + 1).ToString() + " savaites darbo valandos";
+                UndoBtn.Text = "Undo week";
             }
             else
             {

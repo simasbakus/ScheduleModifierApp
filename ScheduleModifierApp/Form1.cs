@@ -242,10 +242,7 @@ namespace ScheduleModifierApp
         /// <param name="row"></param>
         public void undoChanges(int employeeId, int row)
         {
-            for (int col = 0; col < 5; col++)
-            {
-                modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Row == row);
-            }
+            modifiedData.RemoveAll(item => item.EmployeeId == employeeId && item.Row == row);
             fillDataGrid(namesComboBox.SelectedIndex);
         }
 
@@ -275,7 +272,7 @@ namespace ScheduleModifierApp
             Changes the value of the list item if one exists with the same employeeId and day
             Deletes the list item if the value passed is the same as the initial value 
             *********************************************************************************/
-            for (int col = 0; col < 5; col++)
+            for (int col = 0; col < 7; col++)
             {
                 if (ScheduleDataGrid[col,row].Value != null)
                 {
