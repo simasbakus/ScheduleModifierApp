@@ -21,7 +21,7 @@ namespace ScheduleModifierApp
         public string month { get; }
 
         private bool exitWithX = true;
-        public Form2(Form1 form1, int row, int col, int employeeId, int day, string value)
+        public Form2(Form1 form1, int row, int col, int day, string value)
         {
             /****************************************************************************
              Initializes values passed in from form1
@@ -31,18 +31,18 @@ namespace ScheduleModifierApp
             this.form1 = form1;
             this.row = row;
             this.col = col;
-            this.employeeId = employeeId;
+            employeeId = form1.namesComboBox.SelectedIndex;
             this.day = day;
             this.value = value;
-            this.month = form1.month;
+            month = form1.month;
 
             if (form1.WeekCheckBox.Checked)
             {
-                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Row == this.row) != null;
+                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == employeeId && item.Row == this.row) != null;
             }
             else
             {
-                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null;
+                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == this.day) != null;
             }
         }
 
@@ -66,11 +66,11 @@ namespace ScheduleModifierApp
         {
             if (form1.WeekCheckBox.Checked)
             {
-                form1.applyChanges(ModifyingHoursTextBox.Text, this.employeeId, this.row);
+                form1.applyChanges(ModifyingHoursTextBox.Text, employeeId, this.row);
             }
             else
             {
-                form1.applyChanges(ModifyingHoursTextBox.Text, this.employeeId, this.row, this.col, this.day);
+                form1.applyChanges(ModifyingHoursTextBox.Text, employeeId, this.row, this.col, this.day);
             }
             
 
@@ -93,19 +93,19 @@ namespace ScheduleModifierApp
 
             //Enables buttons in form1 if there are items in modifiedData list
             form1.SaveBtn.Enabled = form1.modifiedData.Any();
-            form1.UndoAllBtn.Enabled = form1.modifiedData.Any(item => item.EmployeeId == this.employeeId);
-            form1.fillDataGrid(this.employeeId);
+            form1.UndoAllBtn.Enabled = form1.modifiedData.Any(item => item.EmployeeId == employeeId);
+            form1.fillDataGrid(employeeId);
         }
 
         private void UndoBtn_Click(object sender, EventArgs e)
         {
             if (form1.WeekCheckBox.Checked)
             {
-                form1.undoChanges(this.employeeId, this.row);
+                form1.undoChanges(employeeId, this.row);
             }
             else
             {
-                form1.undoChanges(this.employeeId, this.row, this.col);
+                form1.undoChanges(employeeId, this.row, this.col);
             }
             exitWithoutMessage();
         }

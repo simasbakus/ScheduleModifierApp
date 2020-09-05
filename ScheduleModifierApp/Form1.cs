@@ -64,14 +64,13 @@ namespace ScheduleModifierApp
              ********************************************************************************/
             if (ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Value != null)
             {
-                var employeeId = namesComboBox.SelectedIndex;
                 var value = ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Value.ToString();
                 value = value.Substring(value.IndexOf(Environment.NewLine) + 2);
                 var col = e.ColumnIndex;
                 var row = e.RowIndex;
                 int day = getDayOfMonth(row, col, startingCol);
-                Form2 form2 = new Form2(this, row, col, employeeId, day, value);
-                form2.Show();
+                Form2 form2 = new Form2(this, row, col, day, value);
+                form2.ShowDialog();
             }
         }
 
@@ -331,7 +330,6 @@ namespace ScheduleModifierApp
         }
 
         //TODO Vacation form
-        //TODO form1 inactive when form2 is open
         #endregion
     }
 }
