@@ -20,7 +20,7 @@ namespace ScheduleModifierApp
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         DocumentHandler docHandler = new DocumentHandler();
-        public string testFile = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugsejo.docx";
+        public string testFile = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugsejo_Test.docx";
         public Form1()
         {
             InitializeComponent();
@@ -331,6 +331,7 @@ namespace ScheduleModifierApp
         }
 
         //TODO Vacation form
+        //TODO form1 inactive when form2 is open
         #endregion
     }
 }

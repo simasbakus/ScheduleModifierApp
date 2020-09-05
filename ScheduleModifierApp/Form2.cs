@@ -36,7 +36,14 @@ namespace ScheduleModifierApp
             this.value = value;
             this.month = form1.month;
 
-            UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null;
+            if (form1.WeekCheckBox.Checked)
+            {
+                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Row == this.row) != null;
+            }
+            else
+            {
+                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == this.employeeId && item.Day == this.day) != null;
+            }
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -73,7 +80,7 @@ namespace ScheduleModifierApp
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             //If form2 is closed not from OkBtn_Click event - warning message is shown
-            if (exitWithX && ModifyingHoursTextBox.Text != value && !form1.WeekCheckBox.Checked)
+            if (exitWithX && !string.IsNullOrWhiteSpace(ModifyingHoursTextBox.Text) && ModifyingHoursTextBox.Text != value)
             {
                 if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
                                     "Exit without saving?", 
@@ -102,6 +109,18 @@ namespace ScheduleModifierApp
             }
             exitWithoutMessage();
         }
+
+        private void ModifyingHoursTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(ModifyingHoursTextBox.Text))
+            {
+                OkBtn.Enabled = true;
+            }
+            else
+            {
+                OkBtn.Enabled = false;
+            }
+        }
         #endregion
 
         #region ************************************ METHODS ******************************************
@@ -115,8 +134,6 @@ namespace ScheduleModifierApp
             this.Close();
         }
 
-        //TODO applyBtn enabled only if fill in has some value
-        //Issue when fill in is empty and apply is pressed when changing whole week values
         #endregion
     }
 }
