@@ -31,9 +31,9 @@ namespace ScheduleModifierApp
             this.form1 = form1;
             this.row = row;
             this.col = col;
-            employeeId = form1.namesComboBox.SelectedIndex;
             this.day = day;
-            this.value = value;
+            this.value = form1.WeekCheckBox.Checked ? null : value;
+            employeeId = form1.namesComboBox.SelectedIndex;
             month = form1.month;
         }
 
@@ -66,7 +66,7 @@ namespace ScheduleModifierApp
             {
                 form1.applyChanges(ModifyingHoursTextBox.Text, employeeId, this.row, this.col, this.day);
             }
-            
+
             exitWithoutMessage();
         }
 
@@ -126,7 +126,7 @@ namespace ScheduleModifierApp
             exitWithX = false;
             this.Close();
         }
-
         #endregion
+        //TODO adapt warning message for changes for whole week
     }
 }
