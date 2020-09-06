@@ -35,15 +35,6 @@ namespace ScheduleModifierApp
             this.day = day;
             this.value = value;
             month = form1.month;
-
-            if (form1.WeekCheckBox.Checked)
-            {
-                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == employeeId && item.Row == this.row) != null;
-            }
-            else
-            {
-                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == this.day) != null;
-            }
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -52,13 +43,15 @@ namespace ScheduleModifierApp
             {
                 ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine
                                                + month + " men. " + (this.row + 1).ToString() + " savaites darbo valandos";
+                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == employeeId && item.Row == this.row) != null;
                 UndoBtn.Text = "Undo week";
             }
             else
             {
                 ModifyingHoursDateLabel.Text =   form1.namesComboBox.Text + Environment.NewLine
                                                + month + " men. " + day.ToString() + " dienos darbo valandos";
-                ModifyingHoursTextBox.Text   = value;
+                UndoBtn.Enabled = form1.modifiedData.Find(item => item.EmployeeId == employeeId && item.Day == this.day) != null;
+                ModifyingHoursTextBox.Text = value;
             }
         }
 
@@ -74,7 +67,6 @@ namespace ScheduleModifierApp
                 form1.applyChanges(ModifyingHoursTextBox.Text, employeeId, this.row, this.col, this.day);
             }
             
-
             exitWithoutMessage();
         }
 
@@ -92,9 +84,6 @@ namespace ScheduleModifierApp
                 }
             }
 
-            //Enables buttons in form1 if there are items in modifiedData list
-            form1.SaveBtn.Enabled = form1.modifiedData.Any();
-            form1.UndoAllBtn.Enabled = form1.modifiedData.Any(item => item.EmployeeId == employeeId);
             form1.fillDataGrid(employeeId);
         }
 
@@ -113,6 +102,9 @@ namespace ScheduleModifierApp
 
         private void ModifyingHoursTextBox_TextChanged(object sender, EventArgs e)
         {
+            /*
+             Enables apply button if textBox value is not empty
+             */
             if (!string.IsNullOrWhiteSpace(ModifyingHoursTextBox.Text))
             {
                 OkBtn.Enabled = true;

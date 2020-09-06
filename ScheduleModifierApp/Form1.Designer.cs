@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.namesComboBox = new System.Windows.Forms.ComboBox();
             this.ScheduleDataGrid = new System.Windows.Forms.DataGridView();
             this.ColMonday = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,14 +75,14 @@
             this.ColFriday,
             this.ColSatuday,
             this.ColSunday});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ScheduleDataGrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.ScheduleDataGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.ScheduleDataGrid.Location = new System.Drawing.Point(12, 210);
             this.ScheduleDataGrid.MultiSelect = false;
@@ -208,11 +208,11 @@
             // 
             this.WeekCheckBox.AutoSize = true;
             this.WeekCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.WeekCheckBox.Location = new System.Drawing.Point(746, 165);
+            this.WeekCheckBox.Location = new System.Drawing.Point(818, 160);
             this.WeekCheckBox.Name = "WeekCheckBox";
-            this.WeekCheckBox.Size = new System.Drawing.Size(195, 24);
+            this.WeekCheckBox.Size = new System.Drawing.Size(123, 24);
             this.WeekCheckBox.TabIndex = 7;
-            this.WeekCheckBox.Text = "Modify business week";
+            this.WeekCheckBox.Text = "Modify week";
             this.WeekCheckBox.UseVisualStyleBackColor = true;
             // 
             // Form1

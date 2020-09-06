@@ -49,7 +49,6 @@ namespace ScheduleModifierApp
         private void namesComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             fillDataGrid(namesComboBox.SelectedIndex);
-            UndoAllBtn.Enabled = modifiedData.Any(item => item.EmployeeId == namesComboBox.SelectedIndex);
         }
 
         private void ScheduleDataGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -105,10 +104,6 @@ namespace ScheduleModifierApp
         private void UndoAllBtn_Click(object sender, EventArgs e)
         {
             undoChanges(namesComboBox.SelectedIndex);
-
-            //TODO btton enabling method???
-            UndoAllBtn.Enabled = false;
-            SaveBtn.Enabled = modifiedData.Any();
         }
 
         private void ScheduleDataGrid_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -177,6 +172,9 @@ namespace ScheduleModifierApp
             }
 
             updateDataGridViewFromModifiedList(employeeId);
+
+            UndoAllBtn.Enabled = modifiedData.Any(item => item.EmployeeId == employeeId);
+            SaveBtn.Enabled = modifiedData.Any();
         }
 
         /// <summary>
@@ -221,7 +219,7 @@ namespace ScheduleModifierApp
         {
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {
-                ScheduleDataGrid.Rows[item.Row].Cells[item.Col].Value = item.Day + Environment.NewLine + item.Value;
+                ScheduleDataGrid[item.Col, item.Row].Value = item.Day + Environment.NewLine + item.Value;
             }
         }
 
