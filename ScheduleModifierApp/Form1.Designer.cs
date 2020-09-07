@@ -96,6 +96,7 @@
             this.ScheduleDataGrid.Size = new System.Drawing.Size(1171, 240);
             this.ScheduleDataGrid.TabIndex = 2;
             this.ScheduleDataGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleDataGrid_CellDoubleClick);
+            this.ScheduleDataGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.ScheduleDataGrid_CellEnter);
             this.ScheduleDataGrid.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.ScheduleDataGrid_CellPainting);
             // 
             // ColMonday

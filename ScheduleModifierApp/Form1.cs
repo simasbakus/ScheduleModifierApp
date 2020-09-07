@@ -128,6 +128,16 @@ namespace ScheduleModifierApp
                 }
             }
         }
+        //TODO draw blue rectangle in cell when cell entered, get rid of cellPainting event
+
+        private void ScheduleDataGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            /**********************************************************************************
+             Matches the selected cell background color with the default cell background color
+             **********************************************************************************/
+
+            ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Style.SelectionBackColor = ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Style.BackColor;
+        }
 
         //HACK for testing purposes only
         private void TestListBtn_Click(object sender, EventArgs e)
@@ -220,6 +230,7 @@ namespace ScheduleModifierApp
             foreach (var item in modifiedData.FindAll(items => items.EmployeeId == employeeId))
             {
                 ScheduleDataGrid[item.Col, item.Row].Value = item.Day + Environment.NewLine + item.Value;
+                ScheduleDataGrid[item.Col, item.Row].Style.BackColor = Color.LightGreen;
             }
         }
 
@@ -325,8 +336,8 @@ namespace ScheduleModifierApp
         }
 
         //TODO Vacation form
-        //TODO visual changes for modified dates in dataGridView
         //TODO form1 resizeability
         #endregion
+
     }
 }
