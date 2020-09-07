@@ -127,6 +127,6 @@ namespace ScheduleModifierApp
             this.Close();
         }
         #endregion
-        //TODO adapt warning message for changes for whole week
+        //TODO adapt warning message when changing whole week
     }
 }
