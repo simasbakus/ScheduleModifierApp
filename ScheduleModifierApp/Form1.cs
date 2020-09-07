@@ -326,7 +326,7 @@ namespace ScheduleModifierApp
 
         //TODO Vacation form
         //TODO visual changes for modified dates in dataGridView
-        //TODO form1 resizability
+        //TODO form1 resizeability
         #endregion
     }
 }

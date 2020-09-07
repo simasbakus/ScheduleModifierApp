@@ -75,7 +75,7 @@ namespace ScheduleModifierApp
             //If form2 is closed not from OkBtn_Click event - warning message is shown
             if (exitWithX && !string.IsNullOrWhiteSpace(ModifyingHoursTextBox.Text) && ModifyingHoursTextBox.Text != value)
             {
-                if (MessageBox.Show("Do You really want to cancel editing day " + day + "? Latest change will not be saved!", 
+                if (MessageBox.Show("Do You really want to cancel editing? Latest changes will not be saved!", 
                                     "Exit without saving?", 
                                     MessageBoxButtons.YesNo,
                                     MessageBoxIcon.Warning) == DialogResult.No)
@@ -127,6 +127,5 @@ namespace ScheduleModifierApp
             this.Close();
         }
         #endregion
-        //TODO adapt warning message when changing whole week
     }
 }
