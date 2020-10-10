@@ -20,10 +20,11 @@ namespace ScheduleModifierApp
         public string month;
         public List<ModifiedData> modifiedData = new List<ModifiedData>();
         DocumentHandler docHandler = new DocumentHandler();
-        public string testFile = @"C:\Users\simas\OneDrive\Documents\Grafikas_Rugsejo_Test.docx";
-        public Form1()
+        public string testFile { get; set; }
+        public Form1(string path)
         {
             InitializeComponent();
+            this.testFile = path;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -137,21 +138,6 @@ namespace ScheduleModifierApp
              **********************************************************************************/
 
             ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Style.SelectionBackColor = ScheduleDataGrid[e.ColumnIndex, e.RowIndex].Style.BackColor;
-        }
-
-        //HACK for testing purposes only
-        private void TestListBtn_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("List count: " + modifiedData.Count());
-            if (modifiedData.Any())
-            {
-                MessageBox.Show("Employee Id: " + modifiedData.Last().EmployeeId + Environment.NewLine
-                                + "Day: " + modifiedData.Last().Day + Environment.NewLine
-                                + "Value: " + modifiedData.Last().Value + Environment.NewLine
-                                + "Column: " + modifiedData.Last().Col + Environment.NewLine
-                                + "Row: " + modifiedData.Last().Row + Environment.NewLine
-                                + "List ID: " + modifiedData.IndexOf(modifiedData.Last()) + Environment.NewLine);
-            }
         }
         #endregion
 

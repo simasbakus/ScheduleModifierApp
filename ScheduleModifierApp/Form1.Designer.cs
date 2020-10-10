@@ -38,7 +38,6 @@
             this.ColFriday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSatuday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColSunday = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TestListBtn = new System.Windows.Forms.Button();
             this.MonthLabel = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.UndoAllBtn = new System.Windows.Forms.Button();
@@ -162,16 +161,6 @@
             this.ColSunday.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColSunday.Width = 125;
             // 
-            // TestListBtn
-            // 
-            this.TestListBtn.Location = new System.Drawing.Point(803, 79);
-            this.TestListBtn.Name = "TestListBtn";
-            this.TestListBtn.Size = new System.Drawing.Size(138, 23);
-            this.TestListBtn.TabIndex = 3;
-            this.TestListBtn.Text = "TestList";
-            this.TestListBtn.UseVisualStyleBackColor = true;
-            this.TestListBtn.Click += new System.EventHandler(this.TestListBtn_Click);
-            // 
             // MonthLabel
             // 
             this.MonthLabel.AutoSize = true;
@@ -225,7 +214,6 @@
             this.Controls.Add(this.UndoAllBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.MonthLabel);
-            this.Controls.Add(this.TestListBtn);
             this.Controls.Add(this.ScheduleDataGrid);
             this.Controls.Add(this.namesComboBox);
             this.Name = "Form1";
@@ -242,7 +230,6 @@
 
         public System.Windows.Forms.ComboBox namesComboBox;
         public System.Windows.Forms.DataGridView ScheduleDataGrid;
-        private System.Windows.Forms.Button TestListBtn;
         private System.Windows.Forms.Label MonthLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColMonday;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColTuesday;
