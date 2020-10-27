@@ -145,6 +145,11 @@ namespace ScheduleModifierApp
             int year = int.Parse(text3.Substring(4, 4));
             DateTime date = new DateTime(year, month, 1);
             int weekday = (int)date.DayOfWeek - 1;
+            // temporary fix for when the month starts with sunday
+            if (weekday < 0)
+            {
+                weekday = 6;
+            }
             return weekday;
         }
 
